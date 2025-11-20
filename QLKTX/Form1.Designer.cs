@@ -60,7 +60,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.combtimphong = new System.Windows.Forms.ComboBox();
-            this.textBox16 = new System.Windows.Forms.TextBox();
+            this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnhientatca = new System.Windows.Forms.Button();
@@ -146,10 +146,11 @@
             this.btnghinhan.Location = new System.Drawing.Point(656, 300);
             this.btnghinhan.Margin = new System.Windows.Forms.Padding(2);
             this.btnghinhan.Name = "btnghinhan";
-            this.btnghinhan.Size = new System.Drawing.Size(176, 32);
+            this.btnghinhan.Size = new System.Drawing.Size(208, 32);
             this.btnghinhan.TabIndex = 2;
-            this.btnghinhan.Text = "Ghi nhận đóng tiền";
+            this.btnghinhan.Text = "Thanh Toán Tiền Phòng";
             this.btnghinhan.UseVisualStyleBackColor = false;
+            this.btnghinhan.Click += new System.EventHandler(this.btnghinhan_Click);
             // 
             // btnlichsu
             // 
@@ -186,6 +187,7 @@
             this.btndangxuat.TabIndex = 2;
             this.btndangxuat.Text = "Đăng xuất";
             this.btndangxuat.UseVisualStyleBackColor = false;
+            this.btndangxuat.Click += new System.EventHandler(this.btndangxuat_Click);
             // 
             // textBox5
             // 
@@ -417,7 +419,7 @@
             // 
             this.groupBox2.BackColor = System.Drawing.Color.SteelBlue;
             this.groupBox2.Controls.Add(this.combtimphong);
-            this.groupBox2.Controls.Add(this.textBox16);
+            this.groupBox2.Controls.Add(this.txtTimKiem);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.btnhientatca);
@@ -435,21 +437,21 @@
             // combtimphong
             // 
             this.combtimphong.FormattingEnabled = true;
-            this.combtimphong.Location = new System.Drawing.Point(683, 39);
+            this.combtimphong.Location = new System.Drawing.Point(683, 40);
             this.combtimphong.Margin = new System.Windows.Forms.Padding(2);
             this.combtimphong.Name = "combtimphong";
             this.combtimphong.Size = new System.Drawing.Size(213, 30);
             this.combtimphong.TabIndex = 4;
             this.combtimphong.SelectedIndexChanged += new System.EventHandler(this.combtimphong_SelectedIndexChanged);
             // 
-            // textBox16
+            // txtTimKiem
             // 
-            this.textBox16.Location = new System.Drawing.Point(214, 41);
-            this.textBox16.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox16.Multiline = true;
-            this.textBox16.Name = "textBox16";
-            this.textBox16.Size = new System.Drawing.Size(272, 29);
-            this.textBox16.TabIndex = 3;
+            this.txtTimKiem.Location = new System.Drawing.Point(214, 41);
+            this.txtTimKiem.Margin = new System.Windows.Forms.Padding(2);
+            this.txtTimKiem.Multiline = true;
+            this.txtTimKiem.Name = "txtTimKiem";
+            this.txtTimKiem.Size = new System.Drawing.Size(272, 29);
+            this.txtTimKiem.TabIndex = 3;
             // 
             // label13
             // 
@@ -496,6 +498,7 @@
             this.btntimkiem.TabIndex = 2;
             this.btntimkiem.Text = "Tìm kiếm ";
             this.btntimkiem.UseVisualStyleBackColor = false;
+            this.btntimkiem.Click += new System.EventHandler(this.btntimkiem_Click);
             // 
             // btnluu
             // 
@@ -576,6 +579,7 @@
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
             this.Text = " ";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -618,7 +622,7 @@
         private System.Windows.Forms.Button btntimkiem;
         private System.Windows.Forms.Button btnluu;
         private System.Windows.Forms.TextBox txtque;
-        private System.Windows.Forms.TextBox textBox16;
+        private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.TextBox txtHo_Ten;
         private System.Windows.Forms.TextBox txtMSSV;
         private System.Windows.Forms.TextBox txtSDT;

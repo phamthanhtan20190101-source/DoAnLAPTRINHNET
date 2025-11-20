@@ -34,34 +34,26 @@ namespace QLKTX
             this.combtimphong.SelectedIndexChanged += new System.EventHandler(this.combtimphong_SelectedIndexChanged);
             this.cobphai.SelectedIndexChanged += new System.EventHandler(this.cobphai_SelectedIndexChanged);
         }
-        // THAY THẾ HÀM NÀY
+
         private void TaiDuLieuLenDataGird()
         {
             string query = "SELECT * FROM SinhVien";
 
             try
             {
-                // 1. Khởi tạo DataAdapter
+                
                 daSinhvien = new SqlDataAdapter(query, connectionString);
 
-                // 2. Tự động tạo lệnh INSERT, UPDATE, DELETE
                 SqlCommandBuilder builder = new SqlCommandBuilder(daSinhvien);
 
-                // 3. Khởi tạo DataTable toàn cục
                 dt = new DataTable();
 
-                // 4. Đổ TOÀN BỘ dữ liệu vào DataTable
                 daSinhvien.Fill(dt);
 
-                // 5. === SỬA LỖI HIỂN THỊ TẠI ĐÂY ===
-                // Mặc định, DataView chỉ hiển thị các dòng 'Current'
-                // Chúng ta phải CÀI ĐẶT cho nó hiển thị cả các dòng 'Added' (Mới thêm).
                 dt.DefaultView.RowStateFilter = DataViewRowState.CurrentRows | DataViewRowState.Added;
 
-                // 6. Gán DataTable làm nguồn
                 dataGridDSSV.DataSource = dt;
 
-                // 7. Định dạng cột (Giữ nguyên code của bạn)
                 dataGridDSSV.Columns["MSSV"].HeaderText = "Mã Số Sinh Viên";
                 dataGridDSSV.Columns["MSSV"].Width = 125;
                 dataGridDSSV.Columns["HoTen"].HeaderText = "Họ Tên";
@@ -103,16 +95,16 @@ namespace QLKTX
         {
             if (!KiemTraNhapLieu(true))
             {
-                return; // Dừng lại nếu kiểm tra thất bại
+                return; 
             }
 
-            // 2. Kiểm tra sức chứa phòng
+            
             if (!KiemTraSucChuaPhong(cobmaphong.Text))
             {
-                return; // Dừng lại nếu phòng đã đầy
+                return; 
             }
 
-            // 3. Kiểm tra MSSV đã tồn tại trong DataTable chưa
+            
             if (dt.Select($"MSSV = '{txtMSSV.Text}'").Length > 0)
             {
                 MessageBox.Show("MSSV này đã tồn tại trong danh sách.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -121,10 +113,10 @@ namespace QLKTX
 
             try
             {
-                // 4. Tạo một dòng mới
+                
                 DataRow newRow = dt.NewRow();
 
-                // 5. Điền dữ liệu
+                
                 newRow["MSSV"] = txtMSSV.Text;
                 newRow["HoTen"] = txtHo_Ten.Text;
                 newRow["Lop"] = txtLop.Text;
@@ -136,21 +128,18 @@ namespace QLKTX
                 newRow["MaPhong"] = cobmaphong.Text;
                 newRow["TrangThaiTienPhong"] = "Chưa đóng";
 
-                // 6. Thêm dòng mới vào DataTable
+                
                 dt.Rows.Add(newRow);
 
-                // 7. === SỬA LỖI HIỂN THỊ TẠI ĐÂY ===
-                // Xóa mọi bộ lọc đang có để đảm bảo hàng mới được hiển thị
+               
                 dt.DefaultView.RowFilter = string.Empty;
 
-                // Đồng thời reset các ô tìm kiếm
-                combtimphong.SelectedIndex = 0; // Đặt về "--- Tất cả ---"
-                textBox16.Text = ""; // Xóa text tìm kiếm
+                combtimphong.SelectedIndex = 0;
+                txtTimKiem.Text = "";
 
-                // 8. Xóa trắng các ô nhập liệu
                 XoaTrangTextBoxes();
 
-                // 9. Tải lại danh sách phòng (logic này vẫn đúng)
+
                 TaiPhongTheoGioiTinh(cobphai.Text);
             }
             catch (Exception ex)
@@ -176,7 +165,6 @@ namespace QLKTX
                 return false;
             }
 
-            // Chỉ kiểm tra MSSV khi 'kiemTraMSSV' là true
             if (kiemTraMSSV)
             {
                 if (string.IsNullOrWhiteSpace(txtMSSV.Text))
@@ -193,7 +181,6 @@ namespace QLKTX
                 }
             }
 
-            // (Các kiểm tra còn lại)
             if (!Regex.IsMatch(txtSDT.Text, @"^0[0-9]{9}$"))
             {
                 MessageBox.Show("Số điện thoại phải bắt đầu bằng 0 và có đúng 10 chữ số.", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -207,34 +194,31 @@ namespace QLKTX
                 return false;
             }
 
-            // === SỬA LỖI Ở ĐÂY ===
-            // Nếu tất cả các kiểm tra ở trên đều VƯỢT QUA (không có lỗi)
-            // chúng ta phải trả về 'true' để báo là nhập liệu hợp lệ.
             return true;
         }
 
         private void TaiPhongTheoGioiTinh(string gioiTinh)
         {
-            cobmaphong.Items.Clear(); // Xóa danh sách phòng cũ
-            cobmaphong.Text = "";     // Reset lựa chọn
+            cobmaphong.Items.Clear(); 
+            cobmaphong.Text = "";     
 
             string dieuKienToaNha = "";
             if (gioiTinh == "Nam")
             {
-                // Ràng buộc 1: Nam chỉ ở tòa A, C
+                
                 dieuKienToaNha = "T.MaToaNha IN ('A', 'C')";
             }
             else if (gioiTinh == "Nữ")
             {
-                // Ràng buộc 2: Nữ chỉ ở tòa B, D
+                
                 dieuKienToaNha = "T.MaToaNha IN ('B', 'D')";
             }
             else
             {
-                return; // Chưa chọn giới tính, không tải gì cả
+                return; 
             }
 
-            // Ràng buộc 3: Chỉ tải phòng "Trống"
+            
             string query = $@"
         SELECT P.MaPhong 
         FROM Phong P
@@ -271,7 +255,7 @@ namespace QLKTX
             if (cobphai.SelectedItem != null)
             {
                 string gioiTinhDaChon = cobphai.Text;
-                // Gọi hàm lọc phòng mới
+                
                 TaiPhongTheoGioiTinh(gioiTinhDaChon);
             }
         }
@@ -280,11 +264,11 @@ namespace QLKTX
         private bool KiemTraSucChuaPhong(string maPhong)
         {
             int soLuongToiDa = 0;
-            int soLuongHienTai = 0; // Sẽ đếm trong DataTable
+            int soLuongHienTai = 0; 
 
             try
             {
-                // 1. Lấy số lượng tối đa (4 hay 6) từ CSDL (Phần này vẫn đúng)
+                
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
@@ -307,12 +291,9 @@ namespace QLKTX
                     }
                 }
 
-                // 2. === SỬA LỖI Ở ĐÂY ===
-                // Đếm số sinh viên HIỆN TẠI có trong DataTable (dt)
-                // (Bao gồm cả sinh viên cũ từ CSDL và sinh viên mới thêm vào)
                 foreach (DataRow row in dt.Rows)
                 {
-                    // Chỉ đếm các dòng chưa bị xóa và có cùng mã phòng
+                    
                     if (row.RowState != DataRowState.Deleted && row["MaPhong"].ToString() == maPhong)
                     {
                         soLuongHienTai++;
@@ -325,14 +306,14 @@ namespace QLKTX
                 return false;
             }
 
-            // 3. So sánh
+            
             if (soLuongHienTai >= soLuongToiDa)
             {
                 MessageBox.Show($"Phòng {maPhong} đã đầy (Tối đa {soLuongToiDa} sinh viên).", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false; // Hết chỗ
+                return false; 
             }
 
-            return true; // Còn chỗ
+            return true;
         }
 
 
@@ -342,12 +323,10 @@ namespace QLKTX
             txtHo_Ten.Text = "";
             txtLop.Text = "";
             txtSDT.Text = "";
-            cobphai.SelectedIndex = -1; // Xóa lựa chọn ComboBox Giới tính
+            cobphai.SelectedIndex = -1;
             txtque.Text = "";
-
-            // SỬA LẠI CHO cobmaphong
-            cobmaphong.Items.Clear(); // Xóa danh sách phòng đã lọc
-            cobmaphong.Text = "";     // Xóa phòng đã chọn
+            cobmaphong.Items.Clear(); 
+            cobmaphong.Text = "";     
 
             dateTimeNgaySinh.Value = DateTime.Now;
             dateTimengayvao.Value = DateTime.Now;
@@ -358,11 +337,7 @@ namespace QLKTX
         {
             try
             {
-                // 1. Dùng DataAdapter toàn cục để Cập nhật CSDL
-                // (Hàm này sẽ tự động chạy lệnh INSERT cho các dòng mới)
                 daSinhvien.Update(dt);
-
-                // 2. Đồng bộ lại DataTable, đánh dấu các dòng là đã lưu
                 dt.AcceptChanges();
 
                 MessageBox.Show("Lưu vào cơ sở dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -370,11 +345,8 @@ namespace QLKTX
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi lưu vào CSDL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                // (Tùy chọn) Nếu lưu thất bại, hủy các thay đổi
-                // dt.RejectChanges(); 
             }
         }
-        // 1. Kiểm tra nhập liệu cơ bản (rỗng, định dạng MSSV, SĐT)
 
 
 
@@ -390,16 +362,15 @@ namespace QLKTX
                     try
                     {
                        
-                        // 1. Tìm dòng (DataRow) trong DataTable (dt)
+                       
                         DataRow[] rowsToDelete = dt.Select($"MSSV = '{mssvCanXoa}'");
 
                         if (rowsToDelete.Length > 0)
                         {
-                            // 2. Đánh dấu dòng này để xóa (KHÔNG xóa trực tiếp)
+                            
                             rowsToDelete[0].Delete();
 
-                            // 3. (Tùy chọn) Cập nhật DataTable
-                            // dt.AcceptChanges(); // Không AcceptChanges ở đây, hãy để nút Lưu làm
+                            
                             MessageBox.Show("Đã xóa sinh viên khỏi danh sách. \nHãy nhấn 'Lưu' để cập nhật CSDL.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                     }
@@ -440,34 +411,27 @@ namespace QLKTX
         private void btnsua_Click(object sender, EventArgs e)
         {
 
-            // Sửa thông tin sinh viên đã chọn trong datagridview không thêm mới 
+            
             if (dataGridDSSV.SelectedRows.Count > 0)
             {
-                // 1. Kiểm tra nhập liệu (trừ MSSV vì không sửa MSSV)
-                if (!KiemTraNhapLieu(false)) // Truyền 'false' để báo là không kiểm tra MSSV
+                if (!KiemTraNhapLieu(false)) 
                 {
                     return;
                 }
 
-                // 2. Lấy dòng đang chọn
                 DataGridViewRow selectedRow = dataGridDSSV.SelectedRows[0];
                 string mssvCanSua = selectedRow.Cells["MSSV"].Value.ToString();
 
-                // 3. Kiểm tra xem MSSV trong TextBox có khớp với MSSV đang chọn không
-                //    (Để tránh sửa nhầm)
                 if (txtMSSV.Text != mssvCanSua)
                 {
                     MessageBox.Show("Bạn không thể sửa MSSV. Dữ liệu trong các ô không khớp với sinh viên đang chọn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
-
-                // 4. Tìm dòng (DataRow) trong DataTable (dt)
                 DataRow[] rowsToUpdate = dt.Select($"MSSV = '{mssvCanSua}'");
                 if (rowsToUpdate.Length > 0)
                 {
                     DataRow row = rowsToUpdate[0];
 
-                    // 5. Cập nhật dữ liệu TỪ TextBox VÀO DataRow
                     row["HoTen"] = txtHo_Ten.Text;
                     row["Lop"] = txtLop.Text;
                     row["SDT"] = txtSDT.Text;
@@ -476,7 +440,6 @@ namespace QLKTX
                     row["NgayVao"] = dateTimengayvao.Value;
                     row["QueQuan"] = txtque.Text;
                     row["MaPhong"] = cobmaphong.Text;
-                    // (Không sửa TrangThaiTienPhong ở đây)
 
                     MessageBox.Show("Sửa thông tin sinh viên thành công (trên Grid).\nHãy nhấn 'Lưu' để cập nhật CSDL.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -489,7 +452,6 @@ namespace QLKTX
 
         private void btnhuy_Click(object sender, EventArgs e)
         {
-            // Hủy các thay đổi chưa lưu trong DataTable hỏi người dùng trước
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy tất cả các thay đổi chưa lưu không?", "Xác nhận hủy", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.Yes)
                 dt.RejectChanges();
@@ -510,32 +472,23 @@ namespace QLKTX
         {
             if (combtimphong.SelectedIndex == -1)
             {
-                return; // Không làm gì nếu chưa chọn
+                return;
             }
 
-            // 1. KIỂM TRA NẾU CHỌN "TẤT CẢ"
-            if (combtimphong.SelectedIndex == 0) // (Giả sử 0 là "--- Tất cả ---")
+
+            if (combtimphong.SelectedIndex == 0) 
             {
-                // Xóa bộ lọc, hiển thị lại tất cả sinh viên
+                
                 dt.DefaultView.RowFilter = string.Empty;
             }
             else
             {
-                // 2. NẾU CHỌN PHÒNG CỤ THỂ
                 string maPhongCanLoc = combtimphong.Text;
-
-                // 3. Áp dụng bộ lọc vào DataTable (DataGridView sẽ tự động cập nhật)
                 dt.DefaultView.RowFilter = $"MaPhong = '{maPhongCanLoc}'";
-
-                // 4. KIỂM TRA KẾT QUẢ (YÊU CẦU CỦA BẠN)
-              
                 if (dt.DefaultView.Count == 0)
                 {
-                    // Nếu không có sinh viên nào, hiển thị thông báo
                     MessageBox.Show($"Không có sinh viên nào trong phòng {maPhongCanLoc}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    
-                    // dt.DefaultView.RowFilter = string.Empty;
+                    dt.DefaultView.RowFilter = string.Empty;
                 }
             }
 
@@ -543,9 +496,7 @@ namespace QLKTX
         private void TaiPhongVaoTimKiem()
         {
             combtimphong.Items.Clear();
-
-            // === THÊM DÒNG NÀY ĐỂ SỬA LỖI LỌC ===
-            combtimphong.Items.Add("--- Tất cả ---"); // Mục để xóa bộ lọc
+            combtimphong.Items.Add("--- Tất cả ---"); 
 
             string query = "SELECT MaPhong FROM Phong ORDER BY MaPhong";
             try
@@ -562,12 +513,64 @@ namespace QLKTX
                         }
                     }
                 }
-                // Dòng này bây giờ sẽ chọn "--- Tất cả ---" làm mặc định
                 combtimphong.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi tải danh sách phòng tìm kiếm: " + ex.Message);
+            }
+        }
+
+        private void btnghinhan_Click(object sender, EventArgs e)
+        {
+            // mở form 4 
+            Form4 form4 = new Form4();
+            form4.Show();
+            this.Hide();
+
+
+        }
+
+        private void btndangxuat_Click(object sender, EventArgs e)
+        {
+            DialogResult traloi;
+            traloi = MessageBox.Show("Bạn có chắc chắn muốn đăng xuất không?", "Đăng xuất", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (traloi == DialogResult.Yes)
+            {
+                this.Hide();
+                Form2 frm2 = new Form2();
+                frm2.Show();
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btntimkiem_Click(object sender, EventArgs e)
+        {
+            string keyword = txtTimKiem.Text.Trim();
+
+            if (string.IsNullOrEmpty(keyword))
+            {
+                MessageBox.Show("Vui lòng nhập Mã số sinh viên hoặc Tên sinh viên để tìm kiếm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            string filterExpression = string.Format("MSSV LIKE '%{0}%' OR HoTen LIKE '%{0}%'", keyword);
+
+
+            if (dt != null)
+            {
+                dt.DefaultView.RowFilter = filterExpression;
+
+                if (dataGridDSSV.Rows.Count == 0 || (dataGridDSSV.Rows.Count == 1 && dataGridDSSV.Rows[0].IsNewRow))
+                {
+                    MessageBox.Show("Không tìm thấy sinh viên nào với thông tin này.", "Kết quả tìm kiếm", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    dt.DefaultView.RowFilter = string.Empty;
+                }
             }
         }
     }
