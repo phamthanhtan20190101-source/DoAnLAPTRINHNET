@@ -20,7 +20,7 @@ namespace QLKTX
         {
             InitializeComponent();
         }
-        string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
         DataSet ds = new DataSet();
         SqlDataAdapter daSinhvien;
         DataTable dt;
@@ -572,6 +572,13 @@ namespace QLKTX
                     dt.DefaultView.RowFilter = string.Empty;
                 }
             }
+        }
+
+        private void quảnLýToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form5 f5= new Form5();
+            f5.Show();
+            this.Hide();
         }
     }
 }
