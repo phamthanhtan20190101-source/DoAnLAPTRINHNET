@@ -118,9 +118,6 @@
             // cboTrangThai
             // 
             this.cboTrangThai.FormattingEnabled = true;
-            this.cboTrangThai.Items.AddRange(new object[] {
-            "Nam",
-            "Nữ"});
             this.cboTrangThai.Location = new System.Drawing.Point(918, 26);
             this.cboTrangThai.Margin = new System.Windows.Forms.Padding(2);
             this.cboTrangThai.Name = "cboTrangThai";

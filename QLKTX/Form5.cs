@@ -89,8 +89,8 @@ namespace QLKTX
         {
             txtMaPhong.Text = "";
             txtMaToaNha.Text = "";
-            cboLoaiPhong.Items.Clear(); 
-            cboTrangThai.Items.Clear();
+            cboLoaiPhong.SelectedIndex = -1;
+            cboTrangThai.SelectedIndex = -1;
             txtGia.Text = "";
             txtTienDN.Text = "";
         }
@@ -149,6 +149,23 @@ namespace QLKTX
             TaiDuLieuLenDataGird();
             TaiToaNhaVaoTimKiem();
 
+            string sQueryLoaiPhong="SELECT DISTINCT LoaiPhong FROM Phong";
+            daPhong= new SqlDataAdapter(sQueryLoaiPhong, connectionString);
+            daPhong.Fill(ds, "LoaiPhong");
+            cboLoaiPhong.DataSource = ds.Tables["LoaiPhong"];
+            cboLoaiPhong.DisplayMember = "LoaiPhong";
+            cboLoaiPhong.ValueMember = "LoaiPhong";
+
+            string sQueryTrangThai = "SELECT DISTINCT TrangThai FROM Phong WHERE TrangThai IS NOT NULL AND TrangThai <> ''";
+            daPhong = new SqlDataAdapter(sQueryTrangThai, connectionString);
+            daPhong.Fill(ds, "TrangThai");
+            cboTrangThai.DataSource = ds.Tables["TrangThai"];
+            cboTrangThai.DisplayMember = "TrangThai";
+            cboTrangThai.ValueMember = "TrangThai";
+
+            // Mặc định không chọn cái nào (để người dùng tự chọn) hoặc chọn cái đầu
+            cboTrangThai.SelectedIndex = -1;
+
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -170,6 +187,15 @@ namespace QLKTX
                 // 5. Hiển thị lên lưới
                 dgDSP.DataSource = dt;
             }
+            dgDSP.ClearSelection();
+            dgDSP.CurrentCell = null; // Đảm bảo không có ô nào bị focus viền xanh
+
+            // 2. Xóa trắng các ô Textbox (đề phòng sự kiện SelectionChanged đã lỡ chạy 1 lần)
+            Reset(); // Hoặc ResetFormState(); (tùy tên hàm bạn đặt)
+
+            // 3. Đưa con trỏ nháy vào ô Mã phòng để nhập luôn
+            // Lưu ý: Trong Form_Load, lệnh .Focus() thường không chạy, phải dùng ActiveControl
+            this.ActiveControl = txtMaPhong;
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
@@ -229,7 +255,7 @@ namespace QLKTX
                    // btnXoa.Enabled = true;    // Mở nút Xóa
 
                     // Khóa ô Mã phòng không cho sửa (vì là khóa chính)
-                    txtMaPhong.Enabled = false;
+                    //txtMaPhong.Enabled = false;
                 }
                 catch (Exception ex)
                 {
