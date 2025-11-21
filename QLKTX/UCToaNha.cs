@@ -26,9 +26,11 @@ namespace QLKTX
         public void SetData(string ma, string ten, int daDung, int tong)
         {
             MaToaNha = ma;
-            lblTenToaNha.Text = ten;
-            lblThongSo.Text = $"Đã dùng {daDung} / {tong} phòng";
-            if (daDung >= tong) lblThongSo.ForeColor = Color.Red; // Đổi màu đỏ nếu đầy
+            lblToaNha.Text = ten;
+            lblSoPhong.Text = $"Đã dùng {daDung} / {tong} phòng";
+            if (daDung >= tong) lblSoPhong.ForeColor = Color.Red; // Đổi màu đỏ nếu đầy
         }
+
+   
     }
 }

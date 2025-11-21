@@ -18,8 +18,8 @@ namespace QLKTX
         {
             InitializeComponent();
         }
-        string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
-        //string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+        //string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
         DataSet ds = new DataSet();
         SqlDataAdapter daPhong;
         DataTable dt;
@@ -617,6 +617,12 @@ namespace QLKTX
                 Form2 f2 = new Form2();
                 f2.Show();
             }
+        }
+
+        private void ibtnTTToaNha_Click(object sender, EventArgs e)
+        {
+            TTToaNha frm = new TTToaNha();
+            frm.ShowDialog(); // Hiện form lên
         }
     }
     

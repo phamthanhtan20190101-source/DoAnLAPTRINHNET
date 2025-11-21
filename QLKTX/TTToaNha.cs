@@ -16,12 +16,11 @@ namespace QLKTX
         public TTToaNha()
         {
             InitializeComponent();
+            LoadData();
         }
-        string connectionString = @"Data Source=...;Initial Catalog=...;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
 
-        public FormTTToaNha() { InitializeComponent(); }
-
-        private void FormTTToaNha_Load  (object sender, EventArgs e) { LoadData(); }
+        private void TTToaNha_Load(object sender, EventArgs e) { LoadData(); }
 
         private void LoadData()
         {
@@ -43,7 +42,7 @@ namespace QLKTX
 
                     // Sự kiện khi Click vào tòa nhà -> Mở Form chi tiết
                     item.OnSelect += (s, e) => {
-                        FormChiTietPhong frm = new FormChiTietPhong(item.MaToaNha);
+                        TTPhong frm = new TTPhong(item.MaToaNha);
                         frm.ShowDialog();
                     };
                     flowLayoutPanel1.Controls.Add(item);

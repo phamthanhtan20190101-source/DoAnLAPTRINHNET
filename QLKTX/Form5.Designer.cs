@@ -63,7 +63,7 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.ibtnTTToaNha = new FontAwesome.Sharp.IconButton();
             this.ibtnDangXuat = new FontAwesome.Sharp.IconButton();
             this.ibtnThoat = new FontAwesome.Sharp.IconButton();
             this.groupBox1.SuspendLayout();
@@ -341,7 +341,7 @@
             // dgDSP
             // 
             this.dgDSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgDSP.Location = new System.Drawing.Point(9, 22);
+            this.dgDSP.Location = new System.Drawing.Point(-11, 27);
             this.dgDSP.Name = "dgDSP";
             this.dgDSP.ReadOnly = true;
             this.dgDSP.RowHeadersWidth = 62;
@@ -467,22 +467,23 @@
             // 
             this.notifyIcon2.Text = "notifyIcon2";
             // 
-            // iconButton1
+            // ibtnTTToaNha
             // 
-            this.iconButton1.BackColor = System.Drawing.Color.SeaShell;
-            this.iconButton1.ForeColor = System.Drawing.Color.Black;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Hotel;
-            this.iconButton1.IconColor = System.Drawing.Color.SteelBlue;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 60;
-            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.iconButton1.Location = new System.Drawing.Point(1270, 61);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(224, 106);
-            this.iconButton1.TabIndex = 22;
-            this.iconButton1.Text = "Thông tin tòa nhà";
-            this.iconButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.iconButton1.UseVisualStyleBackColor = false;
+            this.ibtnTTToaNha.BackColor = System.Drawing.Color.SeaShell;
+            this.ibtnTTToaNha.ForeColor = System.Drawing.Color.Black;
+            this.ibtnTTToaNha.IconChar = FontAwesome.Sharp.IconChar.Hotel;
+            this.ibtnTTToaNha.IconColor = System.Drawing.Color.SteelBlue;
+            this.ibtnTTToaNha.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnTTToaNha.IconSize = 60;
+            this.ibtnTTToaNha.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ibtnTTToaNha.Location = new System.Drawing.Point(1270, 61);
+            this.ibtnTTToaNha.Name = "ibtnTTToaNha";
+            this.ibtnTTToaNha.Size = new System.Drawing.Size(224, 106);
+            this.ibtnTTToaNha.TabIndex = 22;
+            this.ibtnTTToaNha.Text = "Thông tin tòa nhà";
+            this.ibtnTTToaNha.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ibtnTTToaNha.UseVisualStyleBackColor = false;
+            this.ibtnTTToaNha.Click += new System.EventHandler(this.ibtnTTToaNha_Click);
             // 
             // ibtnDangXuat
             // 
@@ -524,7 +525,7 @@
             this.ClientSize = new System.Drawing.Size(1506, 735);
             this.Controls.Add(this.ibtnThoat);
             this.Controls.Add(this.ibtnDangXuat);
-            this.Controls.Add(this.iconButton1);
+            this.Controls.Add(this.ibtnTTToaNha);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.textBox7);
@@ -587,7 +588,7 @@
         private System.Windows.Forms.ComboBox cboMaToaNha;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.NotifyIcon notifyIcon2;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton ibtnTTToaNha;
         private FontAwesome.Sharp.IconButton ibtnDangXuat;
         private FontAwesome.Sharp.IconButton ibtnThoat;
     }
