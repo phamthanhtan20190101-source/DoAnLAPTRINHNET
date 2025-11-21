@@ -580,6 +580,8 @@ namespace QLKTX
             f5.Show();
             this.Hide();
         }
+
+       
     }
 }
     
