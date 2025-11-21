@@ -53,11 +53,11 @@
             this.btnlsdt = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btntimkiem = new System.Windows.Forms.Button();
             this.combtimphong = new System.Windows.Forms.ComboBox();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btntimkiem = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDSSV)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -122,6 +122,7 @@
             this.btnxuat.TabIndex = 2;
             this.btnxuat.Text = "Xuất phiếu thanh toán";
             this.btnxuat.UseVisualStyleBackColor = true;
+            this.btnxuat.Click += new System.EventHandler(this.btnxuat_Click);
             // 
             // dateTimeNgayDong
             // 
@@ -328,6 +329,7 @@
             this.btnlsdt.TabIndex = 2;
             this.btnlsdt.Text = "Lịch Sử Đóng Tiền";
             this.btnlsdt.UseVisualStyleBackColor = true;
+            this.btnlsdt.Click += new System.EventHandler(this.btnlsdt_Click);
             // 
             // groupBox2
             // 
@@ -357,6 +359,19 @@
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Tìm kiếm";
+            // 
+            // btntimkiem
+            // 
+            this.btntimkiem.BackColor = System.Drawing.Color.DarkGray;
+            this.btntimkiem.ForeColor = System.Drawing.Color.Black;
+            this.btntimkiem.Location = new System.Drawing.Point(932, 33);
+            this.btntimkiem.Margin = new System.Windows.Forms.Padding(2);
+            this.btntimkiem.Name = "btntimkiem";
+            this.btntimkiem.Size = new System.Drawing.Size(123, 30);
+            this.btntimkiem.TabIndex = 9;
+            this.btntimkiem.Text = "Tìm kiếm ";
+            this.btntimkiem.UseVisualStyleBackColor = false;
+            this.btntimkiem.Click += new System.EventHandler(this.btntimkiem_Click);
             // 
             // combtimphong
             // 
@@ -397,19 +412,6 @@
             this.label12.Size = new System.Drawing.Size(108, 19);
             this.label12.TabIndex = 6;
             this.label12.Text = "Lọc theo phòng ";
-            // 
-            // btntimkiem
-            // 
-            this.btntimkiem.BackColor = System.Drawing.Color.DarkGray;
-            this.btntimkiem.ForeColor = System.Drawing.Color.Black;
-            this.btntimkiem.Location = new System.Drawing.Point(932, 33);
-            this.btntimkiem.Margin = new System.Windows.Forms.Padding(2);
-            this.btntimkiem.Name = "btntimkiem";
-            this.btntimkiem.Size = new System.Drawing.Size(123, 30);
-            this.btntimkiem.TabIndex = 9;
-            this.btntimkiem.Text = "Tìm kiếm ";
-            this.btntimkiem.UseVisualStyleBackColor = false;
-            this.btntimkiem.Click += new System.EventHandler(this.btntimkiem_Click);
             // 
             // Form4
             // 

@@ -34,7 +34,6 @@
             this.btnxoa = new System.Windows.Forms.Button();
             this.btnhuy = new System.Windows.Forms.Button();
             this.btnghinhan = new System.Windows.Forms.Button();
-            this.btnlichsu = new System.Windows.Forms.Button();
             this.btnthoat = new System.Windows.Forms.Button();
             this.btndangxuat = new System.Windows.Forms.Button();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -69,10 +68,13 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.dataGridDSSV = new System.Windows.Forms.DataGridView();
             this.textBox7 = new System.Windows.Forms.TextBox();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.quảnLýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDSSV)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -151,17 +153,6 @@
             this.btnghinhan.Text = "Thanh Toán Tiền Phòng";
             this.btnghinhan.UseVisualStyleBackColor = false;
             this.btnghinhan.Click += new System.EventHandler(this.btnghinhan_Click);
-            // 
-            // btnlichsu
-            // 
-            this.btnlichsu.BackColor = System.Drawing.Color.DarkGray;
-            this.btnlichsu.Location = new System.Drawing.Point(878, 300);
-            this.btnlichsu.Margin = new System.Windows.Forms.Padding(2);
-            this.btnlichsu.Name = "btnlichsu";
-            this.btnlichsu.Size = new System.Drawing.Size(134, 32);
-            this.btnlichsu.TabIndex = 2;
-            this.btnlichsu.Text = "Xem lịch sử ";
-            this.btnlichsu.UseVisualStyleBackColor = false;
             // 
             // btnthoat
             // 
@@ -551,6 +542,25 @@
             this.textBox7.Size = new System.Drawing.Size(1229, 481);
             this.textBox7.TabIndex = 7;
             // 
+            // menuStrip1
+            // 
+            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quảnLýToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1256, 36);
+            this.menuStrip1.TabIndex = 10;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // quảnLýToolStripMenuItem
+            // 
+            this.quảnLýToolStripMenuItem.Name = "quảnLýToolStripMenuItem";
+            this.quảnLýToolStripMenuItem.Size = new System.Drawing.Size(147, 32);
+            this.quảnLýToolStripMenuItem.Text = "Quản lý phòng";
+            this.quảnLýToolStripMenuItem.Click += new System.EventHandler(this.quảnLýToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
@@ -564,7 +574,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.btndangxuat);
             this.Controls.Add(this.btnthoat);
-            this.Controls.Add(this.btnlichsu);
             this.Controls.Add(this.btnghinhan);
             this.Controls.Add(this.textBox5);
             this.Controls.Add(this.btnhuy);
@@ -573,9 +582,11 @@
             this.Controls.Add(this.btnsua);
             this.Controls.Add(this.btnthem);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "Form1";
             this.Text = " ";
@@ -587,6 +598,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridDSSV)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -600,7 +613,6 @@
         private System.Windows.Forms.Button btnxoa;
         private System.Windows.Forms.Button btnhuy;
         private System.Windows.Forms.Button btnghinhan;
-        private System.Windows.Forms.Button btnlichsu;
         private System.Windows.Forms.Button btnthoat;
         private System.Windows.Forms.Button btndangxuat;
         private System.Windows.Forms.TextBox textBox5;
@@ -635,6 +647,8 @@
         private System.Windows.Forms.ComboBox cobmaphong;
         private System.Windows.Forms.DataGridView dataGridDSSV;
         private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem quảnLýToolStripMenuItem;
     }
 }
 
