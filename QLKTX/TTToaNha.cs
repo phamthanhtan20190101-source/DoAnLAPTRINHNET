@@ -42,11 +42,24 @@ namespace QLKTX
 
                     // Sự kiện khi Click vào tòa nhà -> Mở Form chi tiết
                     item.OnSelect += (s, e) => {
+                        this.Hide();
                         TTPhong frm = new TTPhong(item.MaToaNha);
                         frm.ShowDialog();
+                        this.Show();
                     };
                     flowLayoutPanel1.Controls.Add(item);
                 }
+            }
+        }
+
+        private void ibtnThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult traloi = MessageBox.Show("Bạn có muốn quay về màn hình chính?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (traloi == DialogResult.Yes)
+            {
+                Application.Restart();
+                Environment.Exit(0);
             }
         }
     }

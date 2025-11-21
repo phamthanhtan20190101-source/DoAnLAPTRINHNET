@@ -28,6 +28,7 @@ namespace QLKTX
             this.maToaNha = ma;
             this.Text = "Danh sách phòng tòa " + ma;
             LoadData();
+            HienThiThongTin();
         }
 
 
@@ -85,6 +86,53 @@ namespace QLKTX
                 {
                     MessageBox.Show("Lỗi tải phòng: " + ex.Message);
                 }
+            }
+        }
+
+        private void HienThiThongTin()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    // SQL: Đếm tổng số phòng VÀ tổng số sinh viên của tòa nhà này
+                    string sql = @"
+                    SELECT 
+                        (SELECT COUNT(*) FROM Phong WHERE MaToaNha = @ma) AS TongPhong,
+                        (SELECT COUNT(*) FROM SinhVien SV JOIN Phong P ON SV.MaPhong = P.MaPhong WHERE P.MaToaNha = @ma) AS TongSV";
+
+                    SqlCommand cmd = new SqlCommand(sql, conn);
+                    cmd.Parameters.AddWithValue("@ma", maToaNha);
+
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            int tongPhong = reader["TongPhong"] != DBNull.Value ? Convert.ToInt32(reader["TongPhong"]) : 0;
+                            int tongSV = reader["TongSV"] != DBNull.Value ? Convert.ToInt32(reader["TongSV"]) : 0;
+
+                            // Hiển thị lên Label (đã tạo ở bước thiết kế)
+                            // Nếu chưa có label thì dùng MessageBox hoặc đặt tiêu đề Form
+                            this.Text += $" | Tổng: {tongPhong} phòng - {tongSV} sinh viên";
+
+                            // Nếu có Label thì dùng dòng này:
+                            lblThongTinChung.Text = $"Tòa nhà {maToaNha}: Tổng {tongPhong} phòng, hiện có {tongSV} sinh viên.";
+                        }
+                    }
+                }
+                catch (Exception ex) { MessageBox.Show("Lỗi thống kê: " + ex.Message); }
+            }
+        }
+
+        private void ibtnThoat_Click(object sender, EventArgs e)
+        {
+            DialogResult traloi = MessageBox.Show("Bạn có muốn quay về màn hình chính?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (traloi == DialogResult.Yes)
+            {
+                Application.Restart();
+                Environment.Exit(0);
             }
         }
     }
