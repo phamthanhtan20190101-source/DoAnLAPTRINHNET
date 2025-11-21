@@ -122,6 +122,7 @@
             this.btnxuat.TabIndex = 2;
             this.btnxuat.Text = "Xuất phiếu thanh toán";
             this.btnxuat.UseVisualStyleBackColor = true;
+            this.btnxuat.Click += new System.EventHandler(this.btnxuat_Click);
             // 
             // dateTimeNgayDong
             // 
@@ -329,6 +330,7 @@
             this.btnlsdt.TabIndex = 2;
             this.btnlsdt.Text = "Lịch Sử Đóng Tiền";
             this.btnlsdt.UseVisualStyleBackColor = true;
+            this.btnlsdt.Click += new System.EventHandler(this.btnlsdt_Click);
             // 
             // groupBox2
             // 

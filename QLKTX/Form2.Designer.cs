@@ -48,7 +48,8 @@
             this.txtMatKhau.Multiline = true;
             this.txtMatKhau.Name = "txtMatKhau";
             this.txtMatKhau.Size = new System.Drawing.Size(323, 35);
-            this.txtMatKhau.TabIndex = 35;
+            this.txtMatKhau.TabIndex = 2;
+            this.txtMatKhau.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_KeyDown);
             // 
             // txtTenDN
             // 
@@ -56,7 +57,8 @@
             this.txtTenDN.Multiline = true;
             this.txtTenDN.Name = "txtTenDN";
             this.txtTenDN.Size = new System.Drawing.Size(323, 35);
-            this.txtTenDN.TabIndex = 36;
+            this.txtTenDN.TabIndex = 1;
+            this.txtTenDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_KeyDown);
             // 
             // label5
             // 
@@ -105,7 +107,7 @@
             this.btnDang_Nhap.Location = new System.Drawing.Point(262, 319);
             this.btnDang_Nhap.Name = "btnDang_Nhap";
             this.btnDang_Nhap.Size = new System.Drawing.Size(135, 57);
-            this.btnDang_Nhap.TabIndex = 28;
+            this.btnDang_Nhap.TabIndex = 4;
             this.btnDang_Nhap.Text = "Đăng nhập ";
             this.btnDang_Nhap.UseVisualStyleBackColor = false;
             this.btnDang_Nhap.Click += new System.EventHandler(this.btnDang_Nhap_Click);
@@ -124,7 +126,7 @@
             this.checkHienMK.Location = new System.Drawing.Point(477, 284);
             this.checkHienMK.Name = "checkHienMK";
             this.checkHienMK.Size = new System.Drawing.Size(142, 24);
-            this.checkHienMK.TabIndex = 26;
+            this.checkHienMK.TabIndex = 3;
             this.checkHienMK.Text = "Hiện mật khẩu ";
             this.checkHienMK.UseVisualStyleBackColor = true;
             this.checkHienMK.CheckedChanged += new System.EventHandler(this.checkHienMK_CheckedChanged);
@@ -132,6 +134,7 @@
             // textBox3
             // 
             this.textBox3.BackColor = System.Drawing.Color.SteelBlue;
+            this.textBox3.Enabled = false;
             this.textBox3.Location = new System.Drawing.Point(46, 86);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
@@ -149,6 +152,7 @@
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.textBox1.Enabled = false;
             this.textBox1.Location = new System.Drawing.Point(35, 75);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";

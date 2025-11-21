@@ -12,7 +12,8 @@ namespace QLKTX
 {
     public partial class Form2 : Form
     {
-        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
+        //string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
         public Form2()
         {
             InitializeComponent();
@@ -21,51 +22,51 @@ namespace QLKTX
         private void Form2_Load(object sender, EventArgs e)
         {
             txtMatKhau.PasswordChar = '*';
+            txtTenDN.Focus();
         }
 
         private void btnDang_Nhap_Click(object sender, EventArgs e)
         {
-            string tenDangNhap = txtTenDN.Text;
-            string matKhau = txtMatKhau.Text;
+            string tenDangNhap = txtTenDN.Text.Trim(); // Trim() để xóa khoảng trắng thừa
+            string matKhau = txtMatKhau.Text.Trim();
 
             // 1. Kiểm tra rỗng
-            if (string.IsNullOrWhiteSpace(tenDangNhap) || string.IsNullOrWhiteSpace(matKhau))
+            if (string.IsNullOrEmpty(tenDangNhap))
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập tên đăng nhập.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenDN.Focus();
+                return;
+            }
+
+            if (string.IsNullOrEmpty(matKhau))
+            {
+                MessageBox.Show("Vui lòng nhập mật khẩu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMatKhau.Focus();
                 return;
             }
 
             // 2. Kiểm tra CSDL
-            // Hàm này sẽ trả về "Quản lý", "Sinh viên", hoặc null (nếu sai)
             string chucVu = KiemTraDangNhap(tenDangNhap, matKhau);
 
-            // 3. Điều hướng dựa trên chức vụ
+            // 3. Điều hướng
             if (chucVu == "Quản lý")
             {
-                
-
-                // Mở Form1 (Form Quản lý)
                 Form1 form1 = new Form1();
                 form1.Show();
-
-                // Ẩn Form đăng nhập
                 this.Hide();
             }
             else if (chucVu == "Sinh viên")
             {
-                MessageBox.Show("Đăng nhập thành công với tư cách Sinh viên!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // Mở Form3 (Form Sinh viên - dựa theo file Form3.cs của bạn)
                 Form3 form3 = new Form3();
                 form3.Show();
-
-                // Ẩn Form đăng nhập
                 this.Hide();
             }
             else
             {
-                // Nếu hàm trả về null (sai thông tin)
-                MessageBox.Show("Sai tên đăng nhập hoặc mật khẩu.", "Lỗi Đăng Nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Tên đăng nhập hoặc mật khẩu không đúng.", "Lỗi Đăng Nhập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtMatKhau.Clear(); // Xóa mật khẩu để nhập lại
+                txtMatKhau.Focus();
             }
         }
 
@@ -117,6 +118,14 @@ namespace QLKTX
             {
                 // Ẩn mật khẩu: Đặt lại ký tự *
                 txtMatKhau.PasswordChar = '*';
+            }
+        }
+        private void txt_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Gọi hàm click của nút đăng nhập
+                btnDang_Nhap.PerformClick();
             }
         }
     }
