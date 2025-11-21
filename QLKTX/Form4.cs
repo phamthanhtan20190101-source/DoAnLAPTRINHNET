@@ -312,7 +312,6 @@ namespace QLKTX
                     SqlCommandBuilder builder = new SqlCommandBuilder(daSinhvien);
 
                     daSinhvien.Update(dt);
-
                     dt.AcceptChanges();
 
                     MessageBox.Show("Đã lưu dữ liệu vào SQL Server thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
