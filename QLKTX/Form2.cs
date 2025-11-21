@@ -58,7 +58,11 @@ namespace QLKTX
             else if (chucVu == "Sinh viên")
             {
 
-                Form3 form3 = new Form3();
+                string mssv = txtTenDN.Text;
+
+
+                Form3 form3 = new Form3(mssv);
+
                 form3.Show();
                 this.Hide();
             }

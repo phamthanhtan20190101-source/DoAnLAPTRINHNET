@@ -62,7 +62,6 @@
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.btnhientatca = new System.Windows.Forms.Button();
             this.btntimkiem = new System.Windows.Forms.Button();
             this.btnluu = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -413,7 +412,6 @@
             this.groupBox2.Controls.Add(this.txtTimKiem);
             this.groupBox2.Controls.Add(this.label13);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.btnhientatca);
             this.groupBox2.Controls.Add(this.btntimkiem);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.groupBox2.Location = new System.Drawing.Point(31, 369);
@@ -464,19 +462,6 @@
             this.label12.Size = new System.Drawing.Size(135, 22);
             this.label12.TabIndex = 0;
             this.label12.Text = "Lọc theo phòng ";
-            // 
-            // btnhientatca
-            // 
-            this.btnhientatca.BackColor = System.Drawing.Color.DarkGray;
-            this.btnhientatca.ForeColor = System.Drawing.Color.Black;
-            this.btnhientatca.Location = new System.Drawing.Point(1065, 38);
-            this.btnhientatca.Margin = new System.Windows.Forms.Padding(2);
-            this.btnhientatca.Name = "btnhientatca";
-            this.btnhientatca.Size = new System.Drawing.Size(134, 30);
-            this.btnhientatca.TabIndex = 2;
-            this.btnhientatca.Text = "Hiện tất cả ";
-            this.btnhientatca.UseVisualStyleBackColor = false;
-            this.btnhientatca.Click += new System.EventHandler(this.btnhientatca_Click);
             // 
             // btntimkiem
             // 
@@ -550,14 +535,14 @@
             this.quảnLýToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1256, 36);
+            this.menuStrip1.Size = new System.Drawing.Size(1264, 33);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // quảnLýToolStripMenuItem
             // 
             this.quảnLýToolStripMenuItem.Name = "quảnLýToolStripMenuItem";
-            this.quảnLýToolStripMenuItem.Size = new System.Drawing.Size(147, 32);
+            this.quảnLýToolStripMenuItem.Size = new System.Drawing.Size(147, 29);
             this.quảnLýToolStripMenuItem.Text = "Quản lý phòng";
             this.quảnLýToolStripMenuItem.Click += new System.EventHandler(this.quảnLýToolStripMenuItem_Click);
             // 
@@ -630,7 +615,6 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button btnhientatca;
         private System.Windows.Forms.Button btntimkiem;
         private System.Windows.Forms.Button btnluu;
         private System.Windows.Forms.TextBox txtque;

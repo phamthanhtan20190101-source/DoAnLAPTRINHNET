@@ -28,7 +28,7 @@ namespace QLKTX
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            TuDongCapNhatThangMoi();
             TaiDuLieuLenDataGird();
             TaiPhongVaoTimKiem();
             this.dataGridDSSV.SelectionChanged += new System.EventHandler(this.dataGridDSSV_SelectionChanged_1);
@@ -83,14 +83,7 @@ namespace QLKTX
 
         }
 
-        private void btnhientatca_Click(object sender, EventArgs e)
-        {
-            // ấn vào chuyển qua form 3
-            Form3 form3 = new Form3();
-            form3.Show();
-            this.Hide();
-
-        }
+     
 
         private void btnthem_Click(object sender, EventArgs e)
         {
@@ -581,8 +574,60 @@ namespace QLKTX
             f5.Show();
             this.Hide();
         }
+        private void TuDongCapNhatThangMoi()
+        {
+            // 1. Lấy thời gian hiện tại
+            int thangHienTai = DateTime.Now.Month;
+            int namHienTai = DateTime.Now.Year;
 
-       
+            // 2. Lấy thời gian lần cuối cập nhật từ Settings của ứng dụng
+            int thangLuu = Properties.Settings.Default.ThangCapNhat;
+            int namLuu = Properties.Settings.Default.NamCapNhat;
+
+            // 3. So sánh: Nếu sang tháng mới hoặc năm mới
+            if (thangHienTai != thangLuu || namHienTai > namLuu)
+            {
+                // Hỏi xác nhận
+                DialogResult result = MessageBox.Show(
+                    $"Hệ thống phát hiện đã sang tháng mới (Tháng {thangHienTai}/{namHienTai}).\nBạn có muốn đặt lại trạng thái tiền phòng của TẤT CẢ sinh viên thành 'Chưa đóng' không?",
+                    "Cập nhật tháng mới",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (SqlConnection conn = new SqlConnection(connectionString))
+                        {
+                            conn.Open();
+                            // Chạy lệnh Reset trong SQL
+                            string queryUpdateSV = "UPDATE SinhVien SET TrangThaiTienPhong = N'Chưa đóng'";
+                            using (SqlCommand cmdUpdate = new SqlCommand(queryUpdateSV, conn))
+                            {
+                                cmdUpdate.ExecuteNonQuery();
+                            }
+                        }
+
+                        // 4. QUAN TRỌNG: Lưu lại tháng hiện tại vào Settings để không hỏi lại nữa
+                        Properties.Settings.Default.ThangCapNhat = thangHienTai;
+                        Properties.Settings.Default.NamCapNhat = namHienTai;
+                        Properties.Settings.Default.Save(); // Lệnh lưu xuống máy
+
+                        MessageBox.Show("Đã cập nhật trạng thái thu tiền cho tháng mới!", "Thông báo");
+
+                        // Tải lại Grid để thấy thay đổi
+                        TaiDuLieuLenDataGird();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Lỗi cập nhật: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+
     }
 }
     
