@@ -35,30 +35,26 @@ namespace QLKTX
                 dt = new DataTable();
                 daPhong.Fill(dt);
 
-                // 5. === SỬA LỖI HIỂN THỊ TẠI ĐÂY ===
-                // Mặc định, DataView chỉ hiển thị các dòng 'Current'
-                // Chúng ta phải CÀI ĐẶT cho nó hiển thị cả các dòng 'Added' (Mới thêm).
                 dt.DefaultView.RowStateFilter = DataViewRowState.CurrentRows | DataViewRowState.Added;
                 dgDSP.DataSource = dt;
                 dgDSP.Columns["MaPhong"].HeaderText = "Mã Phòng";
-                dgDSP.Columns["MaPhong"].Width = 190;
+                dgDSP.Columns["MaPhong"].Width = 250;
                 dgDSP.Columns["LoaiPhong"].HeaderText = "Loại Phòng";
-                dgDSP.Columns["LoaiPhong"].Width = 190;
+                dgDSP.Columns["LoaiPhong"].Width = 300;
                 dgDSP.Columns["Gia"].HeaderText = "Giá";
-                dgDSP.Columns["Gia"].Width = 190;
+                dgDSP.Columns["Gia"].Width = 300;
                 dgDSP.Columns["TrangThai"].HeaderText = "Trạng Thái";
-                dgDSP.Columns["TrangThai"].Width = 190;
+                dgDSP.Columns["TrangThai"].Width = 250; 
                 dgDSP.Columns["MaToaNha"].HeaderText = "Mã Tòa Nhà";
-                dgDSP.Columns["MaToaNha"].Width = 190;
+                dgDSP.Columns["MaToaNha"].Width = 250;
                 dgDSP.Columns["TienDienNuoc"].HeaderText = "Tiền Điện Nước";
-                dgDSP.Columns["TienDienNuoc"].Width = 190;
+                dgDSP.Columns["TienDienNuoc"].Width = 300;
             }
             catch (Exception ex)    
             {
                 MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi CSDL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void TaiToaNhaVaoTimKiem()
         {
             cboLocToaNha.Items.Clear();
@@ -83,7 +79,7 @@ namespace QLKTX
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi tải danh sách tòa nhà tìm kiếm: " + ex.Message);
+                MessageBox.Show("Lỗi khi tải danh sách tòa nhà: " + ex.Message);
             }
         }
         private void Reset()
@@ -95,10 +91,8 @@ namespace QLKTX
             txtGia.Text = "";
             txtTienDN.Text = "";
         }
-
         private bool KiemTraNhapLieu(bool ktMaPhong = true)
         {
-            // 1. Kiểm tra để trống các trường bắt buộc
             if (string.IsNullOrWhiteSpace(cboMaToaNha.Text) ||
                 string.IsNullOrWhiteSpace(cboLoaiPhong.Text) ||
                 string.IsNullOrWhiteSpace(txtGia.Text)  ||
@@ -107,7 +101,6 @@ namespace QLKTX
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin (Tòa nhà, Loại phòng, Giá, Trạng thái).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
-
             if (ktMaPhong)
             {
                 if (string.IsNullOrWhiteSpace(txtMaPhong.Text))
@@ -125,26 +118,22 @@ namespace QLKTX
                 }
             }
 
-            //Kiểm tra Giá phòng (Phải là số và không âm)
             decimal gia;
-            // Thử ép kiểu sang số, nếu thất bại (nhập chữ) hoặc số nhỏ hơn 0 thì báo lỗi
             if (!decimal.TryParse(txtGia.Text, out gia) || gia < 0)
             {
-                MessageBox.Show("Giá phòng phải là một số và lớn hơn không.", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtGia.Focus(); // Đưa con trỏ về ô Giá
+                MessageBox.Show("Giá phòng phải là một số và lớn hơn không.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtGia.Focus(); 
                 return false;
             }
 
-            // 4. Kiểm tra Tiền điện nước 
             decimal tienDN;
             if (!string.IsNullOrWhiteSpace(txtTienDN.Text) && !decimal.TryParse(txtTienDN.Text, out tienDN))
             {
-                MessageBox.Show("Tiền điện nước phải là số.", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tiền điện nước phải là số.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             return true;
         }
-
         private void Form5_Load(object sender, EventArgs e)
         {
             TaiDuLieuLenDataGird();
@@ -163,10 +152,10 @@ namespace QLKTX
             cboTrangThai.DataSource = ds.Tables["TrangThai"];
             cboTrangThai.DisplayMember = "TrangThai";
             cboTrangThai.ValueMember = "TrangThai";
-            // Mặc định không chọn cái nào (để người dùng tự chọn) hoặc chọn cái đầu
+
             cboTrangThai.SelectedIndex = -1;
 
-            string sQueryToaNha = "SELECT MaToaNha FROM ToaNha"; // Lấy danh sách mã tòa nhà
+            string sQueryToaNha = "SELECT MaToaNha FROM ToaNha"; 
             daPhong = new SqlDataAdapter(sQueryToaNha, connectionString);
             daPhong.Fill(ds, "ToaNha"); // Đổ vào DataSet bảng tên là "ToaNha"
             cboMaToaNha.DataSource = ds.Tables["ToaNha"];
@@ -177,7 +166,6 @@ namespace QLKTX
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                // 1. Lấy dữ liệu
                 string sql = "SELECT * FROM Phong";
                 daPhong = new SqlDataAdapter(sql, conn);
 
@@ -196,7 +184,7 @@ namespace QLKTX
                 dgDSP.DataSource = dt;
             }
             dgDSP.ClearSelection();
-            dgDSP.CurrentCell = null; // Đảm bảo không có ô nào bị focus viền xanh
+            dgDSP.CurrentCell = null; 
 
             // 2. Xóa trắng các ô Textbox (đề phòng sự kiện SelectionChanged đã lỡ chạy 1 lần)
             Reset(); // Hoặc ResetFormState(); (tùy tên hàm bạn đặt)
@@ -205,8 +193,6 @@ namespace QLKTX
             // Lưu ý: Trong Form_Load, lệnh .Focus() thường không chạy, phải dùng ActiveControl
             this.ActiveControl = txtMaPhong;
         }
-
-
         private void dgDSP_SelectionChanged(object sender, EventArgs e)
         {
             if (dgDSP.SelectedRows.Count > 0 && dgDSP.CurrentRow != null && !dgDSP.CurrentRow.IsNewRow)
@@ -236,14 +222,6 @@ namespace QLKTX
                     {
                         txtTienDN.Text = "0";
                     }
-
-                    // 3. Điều khiển trạng thái các nút bấm
-                   // btnThem.Enabled = false;  // Khóa nút Thêm (tránh trùng mã)
-                   // btnSua.Enabled = true;    // Mở nút Sửa
-                   // btnXoa.Enabled = true;    // Mở nút Xóa
-
-                    // Khóa ô Mã phòng không cho sửa (vì là khóa chính)
-                    //txtMaPhong.Enabled = false;
                 }
                 catch (Exception ex)
                 {
@@ -252,7 +230,6 @@ namespace QLKTX
             }
             else
             {
-                // 4. Nếu click vào vùng trống hoặc không chọn dòng nào -> Xóa trắng form
                 Reset();
             }
         }
@@ -627,6 +604,8 @@ namespace QLKTX
             frm.ShowDialog(); // Hiện form lên
             
         }
+
+       
     }
     
 }
