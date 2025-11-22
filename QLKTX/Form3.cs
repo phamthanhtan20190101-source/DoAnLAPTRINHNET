@@ -84,8 +84,38 @@ namespace QLKTX
             }
         }
 
+        private void btnxemls_Click(object sender, EventArgs e)
+        {
+            string mssv = txtmssv.Text;
+            string hoten = txthoten.Text;
+            string phong = txtmaphong.Text;
 
+            // 2. Kiểm tra nếu chưa có thông tin (đề phòng lỗi)
+            if (string.IsNullOrEmpty(mssv))
+            {
+                MessageBox.Show("Không tìm thấy thông tin sinh viên.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
+            // 3. Khởi tạo Form 6 và truyền dữ liệu sang
+            // (Đảm bảo Form6 của bạn đã có hàm khởi tạo nhận 3 tham số này)
+            Form6 fLichSu = new Form6(mssv, hoten, phong);
 
+            // 4. Hiển thị Form Lịch sử
+            fLichSu.ShowDialog();
+        }
+
+        private void btnthoat_Click(object sender, EventArgs e)
+        {
+            // đóng form
+            this.Close();
+
+        }
+
+        private void btnthaydoi_Click(object sender, EventArgs e)
+        {
+            Form7 fChange = new Form7(txtmssv.Text);
+            fChange.ShowDialog();
+        }
     }
 }
