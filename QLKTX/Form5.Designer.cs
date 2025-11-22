@@ -63,7 +63,7 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.notifyIcon2 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.ibtnTTToaNha = new FontAwesome.Sharp.IconButton();
             this.ibtnDangXuat = new FontAwesome.Sharp.IconButton();
             this.ibtnThoat = new FontAwesome.Sharp.IconButton();
             this.groupBox1.SuspendLayout();
@@ -227,10 +227,10 @@
             // 
             this.btnBoChon.BackColor = System.Drawing.Color.SteelBlue;
             this.btnBoChon.ForeColor = System.Drawing.Color.White;
-            this.btnBoChon.Location = new System.Drawing.Point(1051, 243);
+            this.btnBoChon.Location = new System.Drawing.Point(1031, 225);
             this.btnBoChon.Margin = new System.Windows.Forms.Padding(2);
             this.btnBoChon.Name = "btnBoChon";
-            this.btnBoChon.Size = new System.Drawing.Size(134, 32);
+            this.btnBoChon.Size = new System.Drawing.Size(80, 50);
             this.btnBoChon.TabIndex = 11;
             this.btnBoChon.Text = "Bỏ chọn";
             this.btnBoChon.UseVisualStyleBackColor = false;
@@ -251,10 +251,10 @@
             // 
             this.btnHuy.BackColor = System.Drawing.Color.SteelBlue;
             this.btnHuy.ForeColor = System.Drawing.Color.White;
-            this.btnHuy.Location = new System.Drawing.Point(613, 243);
+            this.btnHuy.Location = new System.Drawing.Point(665, 225);
             this.btnHuy.Margin = new System.Windows.Forms.Padding(2);
             this.btnHuy.Name = "btnHuy";
-            this.btnHuy.Size = new System.Drawing.Size(79, 32);
+            this.btnHuy.Size = new System.Drawing.Size(80, 50);
             this.btnHuy.TabIndex = 13;
             this.btnHuy.Text = "Hủy";
             this.btnHuy.UseVisualStyleBackColor = false;
@@ -264,10 +264,10 @@
             // 
             this.btnXoa.BackColor = System.Drawing.Color.SteelBlue;
             this.btnXoa.ForeColor = System.Drawing.Color.White;
-            this.btnXoa.Location = new System.Drawing.Point(321, 234);
+            this.btnXoa.Location = new System.Drawing.Point(464, 225);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(2);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(87, 32);
+            this.btnXoa.Size = new System.Drawing.Size(80, 50);
             this.btnXoa.TabIndex = 14;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.UseVisualStyleBackColor = false;
@@ -277,10 +277,10 @@
             // 
             this.btnLuu.BackColor = System.Drawing.Color.SteelBlue;
             this.btnLuu.ForeColor = System.Drawing.Color.White;
-            this.btnLuu.Location = new System.Drawing.Point(731, 243);
+            this.btnLuu.Location = new System.Drawing.Point(878, 225);
             this.btnLuu.Margin = new System.Windows.Forms.Padding(2);
             this.btnLuu.Name = "btnLuu";
-            this.btnLuu.Size = new System.Drawing.Size(86, 32);
+            this.btnLuu.Size = new System.Drawing.Size(80, 50);
             this.btnLuu.TabIndex = 15;
             this.btnLuu.Text = "Lưu";
             this.btnLuu.UseVisualStyleBackColor = false;
@@ -290,10 +290,10 @@
             // 
             this.btnSua.BackColor = System.Drawing.Color.SteelBlue;
             this.btnSua.ForeColor = System.Drawing.Color.White;
-            this.btnSua.Location = new System.Drawing.Point(181, 234);
+            this.btnSua.Location = new System.Drawing.Point(232, 225);
             this.btnSua.Margin = new System.Windows.Forms.Padding(2);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(86, 32);
+            this.btnSua.Size = new System.Drawing.Size(80, 50);
             this.btnSua.TabIndex = 16;
             this.btnSua.Text = "Sửa";
             this.btnSua.UseVisualStyleBackColor = false;
@@ -303,10 +303,10 @@
             // 
             this.btnThem.BackColor = System.Drawing.Color.SteelBlue;
             this.btnThem.ForeColor = System.Drawing.Color.White;
-            this.btnThem.Location = new System.Drawing.Point(23, 234);
+            this.btnThem.Location = new System.Drawing.Point(34, 225);
             this.btnThem.Margin = new System.Windows.Forms.Padding(2);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(86, 32);
+            this.btnThem.Size = new System.Drawing.Size(80, 50);
             this.btnThem.TabIndex = 17;
             this.btnThem.Text = "Thêm ";
             this.btnThem.UseVisualStyleBackColor = false;
@@ -317,7 +317,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label1.Location = new System.Drawing.Point(557, 10);
+            this.label1.Location = new System.Drawing.Point(661, 21);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(178, 23);
@@ -341,7 +341,7 @@
             // dgDSP
             // 
             this.dgDSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgDSP.Location = new System.Drawing.Point(9, 22);
+            this.dgDSP.Location = new System.Drawing.Point(-11, 27);
             this.dgDSP.Name = "dgDSP";
             this.dgDSP.ReadOnly = true;
             this.dgDSP.RowHeadersWidth = 62;
@@ -467,22 +467,23 @@
             // 
             this.notifyIcon2.Text = "notifyIcon2";
             // 
-            // iconButton1
+            // ibtnTTToaNha
             // 
-            this.iconButton1.BackColor = System.Drawing.Color.SeaShell;
-            this.iconButton1.ForeColor = System.Drawing.Color.Black;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Hotel;
-            this.iconButton1.IconColor = System.Drawing.Color.SteelBlue;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.iconButton1.IconSize = 60;
-            this.iconButton1.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.iconButton1.Location = new System.Drawing.Point(1270, 61);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(224, 106);
-            this.iconButton1.TabIndex = 22;
-            this.iconButton1.Text = "Thông tin tòa nhà";
-            this.iconButton1.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.iconButton1.UseVisualStyleBackColor = false;
+            this.ibtnTTToaNha.BackColor = System.Drawing.Color.SeaShell;
+            this.ibtnTTToaNha.ForeColor = System.Drawing.Color.Black;
+            this.ibtnTTToaNha.IconChar = FontAwesome.Sharp.IconChar.Hotel;
+            this.ibtnTTToaNha.IconColor = System.Drawing.Color.SteelBlue;
+            this.ibtnTTToaNha.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnTTToaNha.IconSize = 60;
+            this.ibtnTTToaNha.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.ibtnTTToaNha.Location = new System.Drawing.Point(1270, 61);
+            this.ibtnTTToaNha.Name = "ibtnTTToaNha";
+            this.ibtnTTToaNha.Size = new System.Drawing.Size(224, 106);
+            this.ibtnTTToaNha.TabIndex = 22;
+            this.ibtnTTToaNha.Text = "Thông tin tòa nhà";
+            this.ibtnTTToaNha.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ibtnTTToaNha.UseVisualStyleBackColor = false;
+            this.ibtnTTToaNha.Click += new System.EventHandler(this.ibtnTTToaNha_Click);
             // 
             // ibtnDangXuat
             // 
@@ -524,7 +525,7 @@
             this.ClientSize = new System.Drawing.Size(1506, 735);
             this.Controls.Add(this.ibtnThoat);
             this.Controls.Add(this.ibtnDangXuat);
-            this.Controls.Add(this.iconButton1);
+            this.Controls.Add(this.ibtnTTToaNha);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.textBox7);
@@ -587,7 +588,7 @@
         private System.Windows.Forms.ComboBox cboMaToaNha;
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.NotifyIcon notifyIcon2;
-        private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton ibtnTTToaNha;
         private FontAwesome.Sharp.IconButton ibtnDangXuat;
         private FontAwesome.Sharp.IconButton ibtnThoat;
     }

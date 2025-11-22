@@ -28,45 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.ibtnPhong = new FontAwesome.Sharp.IconButton();
+            this.ibtnToaNha = new FontAwesome.Sharp.IconButton();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.lblTenToaNha = new System.Windows.Forms.Label();
             this.lblThongSo = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // ibtnPhong
+            // ibtnToaNha
             // 
-            this.ibtnPhong.AutoSize = true;
-            this.ibtnPhong.BackColor = System.Drawing.Color.SeaShell;
-            this.ibtnPhong.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ibtnPhong.IconChar = FontAwesome.Sharp.IconChar.House;
-            this.ibtnPhong.IconColor = System.Drawing.Color.SteelBlue;
-            this.ibtnPhong.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtnPhong.IconSize = 50;
-            this.ibtnPhong.Location = new System.Drawing.Point(54, 3);
-            this.ibtnPhong.Name = "ibtnPhong";
-            this.ibtnPhong.Size = new System.Drawing.Size(119, 85);
-            this.ibtnPhong.TabIndex = 0;
-            this.ibtnPhong.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.ibtnPhong.UseVisualStyleBackColor = false;
+            this.ibtnToaNha.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.ibtnToaNha.AutoSize = true;
+            this.ibtnToaNha.BackColor = System.Drawing.Color.SeaShell;
+            this.ibtnToaNha.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ibtnToaNha.IconChar = FontAwesome.Sharp.IconChar.House;
+            this.ibtnToaNha.IconColor = System.Drawing.Color.SteelBlue;
+            this.ibtnToaNha.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnToaNha.IconSize = 50;
+            this.ibtnToaNha.Location = new System.Drawing.Point(63, 12);
+            this.ibtnToaNha.Name = "ibtnToaNha";
+            this.ibtnToaNha.Size = new System.Drawing.Size(119, 85);
+            this.ibtnToaNha.TabIndex = 0;
+            this.ibtnToaNha.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.ibtnToaNha.UseVisualStyleBackColor = false;
             // 
             // lblTenToaNha
             // 
             this.lblTenToaNha.AutoSize = true;
-            this.lblTenToaNha.Location = new System.Drawing.Point(92, 90);
+            this.lblTenToaNha.Location = new System.Drawing.Point(25, 126);
             this.lblTenToaNha.Name = "lblTenToaNha";
-            this.lblTenToaNha.Size = new System.Drawing.Size(44, 16);
+            this.lblTenToaNha.Size = new System.Drawing.Size(0, 16);
             this.lblTenToaNha.TabIndex = 1;
-            this.lblTenToaNha.Text = "label1";
             // 
             // lblThongSo
             // 
             this.lblThongSo.AutoSize = true;
-            this.lblThongSo.Location = new System.Drawing.Point(92, 117);
+            this.lblThongSo.Location = new System.Drawing.Point(25, 174);
             this.lblThongSo.Name = "lblThongSo";
-            this.lblThongSo.Size = new System.Drawing.Size(44, 16);
-            this.lblThongSo.TabIndex = 2;
-            this.lblThongSo.Text = "label1";
-            this.lblThongSo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblThongSo.Size = new System.Drawing.Size(0, 16);
+            this.lblThongSo.TabIndex = 1;
             // 
             // UCToaNha
             // 
@@ -75,9 +74,9 @@
             this.BackColor = System.Drawing.Color.SeaShell;
             this.Controls.Add(this.lblThongSo);
             this.Controls.Add(this.lblTenToaNha);
-            this.Controls.Add(this.ibtnPhong);
+            this.Controls.Add(this.ibtnToaNha);
             this.Name = "UCToaNha";
-            this.Size = new System.Drawing.Size(226, 150);
+            this.Size = new System.Drawing.Size(250, 205);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -85,7 +84,8 @@
 
         #endregion
 
-        private FontAwesome.Sharp.IconButton ibtnPhong;
+        private FontAwesome.Sharp.IconButton ibtnToaNha;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.Label lblTenToaNha;
         private System.Windows.Forms.Label lblThongSo;
     }

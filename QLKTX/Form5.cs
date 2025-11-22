@@ -618,6 +618,15 @@ namespace QLKTX
                 f2.Show();
             }
         }
+
+        private void ibtnTTToaNha_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            TTToaNha frm = new TTToaNha();
+            frm.FormClosed += (s, args) => this.Show();
+            frm.ShowDialog(); // Hiện form lên
+            
+        }
     }
     
 }
