@@ -8,6 +8,7 @@ namespace QLKTX
 {
     internal static class Program
     {
+        public static string HoTenNguoiDung = "Admin";
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

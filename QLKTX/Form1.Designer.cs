@@ -69,6 +69,7 @@
             this.textBox7 = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.quảnLýToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnclear = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -96,7 +97,7 @@
             this.btnthem.Margin = new System.Windows.Forms.Padding(2);
             this.btnthem.Name = "btnthem";
             this.btnthem.Size = new System.Drawing.Size(86, 32);
-            this.btnthem.TabIndex = 2;
+            this.btnthem.TabIndex = 10;
             this.btnthem.Text = "Thêm ";
             this.btnthem.UseVisualStyleBackColor = false;
             this.btnthem.Click += new System.EventHandler(this.btnthem_Click);
@@ -105,11 +106,11 @@
             // 
             this.btnsua.BackColor = System.Drawing.Color.DarkGray;
             this.btnsua.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnsua.Location = new System.Drawing.Point(280, 300);
+            this.btnsua.Location = new System.Drawing.Point(235, 300);
             this.btnsua.Margin = new System.Windows.Forms.Padding(2);
             this.btnsua.Name = "btnsua";
             this.btnsua.Size = new System.Drawing.Size(86, 32);
-            this.btnsua.TabIndex = 2;
+            this.btnsua.TabIndex = 12;
             this.btnsua.Text = "Sửa";
             this.btnsua.UseVisualStyleBackColor = false;
             this.btnsua.Click += new System.EventHandler(this.btnsua_Click);
@@ -118,11 +119,11 @@
             // 
             this.btnxoa.BackColor = System.Drawing.Color.DarkGray;
             this.btnxoa.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnxoa.Location = new System.Drawing.Point(409, 300);
+            this.btnxoa.Location = new System.Drawing.Point(345, 300);
             this.btnxoa.Margin = new System.Windows.Forms.Padding(2);
             this.btnxoa.Name = "btnxoa";
             this.btnxoa.Size = new System.Drawing.Size(87, 32);
-            this.btnxoa.TabIndex = 2;
+            this.btnxoa.TabIndex = 13;
             this.btnxoa.Text = "Xóa";
             this.btnxoa.UseVisualStyleBackColor = false;
             this.btnxoa.Click += new System.EventHandler(this.btnxoa_Click);
@@ -131,11 +132,11 @@
             // 
             this.btnhuy.BackColor = System.Drawing.Color.DarkGray;
             this.btnhuy.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnhuy.Location = new System.Drawing.Point(539, 300);
+            this.btnhuy.Location = new System.Drawing.Point(455, 300);
             this.btnhuy.Margin = new System.Windows.Forms.Padding(2);
             this.btnhuy.Name = "btnhuy";
             this.btnhuy.Size = new System.Drawing.Size(79, 32);
-            this.btnhuy.TabIndex = 2;
+            this.btnhuy.TabIndex = 14;
             this.btnhuy.Text = "Hủy";
             this.btnhuy.UseVisualStyleBackColor = false;
             this.btnhuy.Click += new System.EventHandler(this.btnhuy_Click);
@@ -144,11 +145,11 @@
             // 
             this.btnghinhan.BackColor = System.Drawing.Color.DarkGray;
             this.btnghinhan.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnghinhan.Location = new System.Drawing.Point(656, 300);
+            this.btnghinhan.Location = new System.Drawing.Point(727, 300);
             this.btnghinhan.Margin = new System.Windows.Forms.Padding(2);
             this.btnghinhan.Name = "btnghinhan";
             this.btnghinhan.Size = new System.Drawing.Size(208, 32);
-            this.btnghinhan.TabIndex = 2;
+            this.btnghinhan.TabIndex = 15;
             this.btnghinhan.Text = "Thanh Toán Tiền Phòng";
             this.btnghinhan.UseVisualStyleBackColor = false;
             this.btnghinhan.Click += new System.EventHandler(this.btnghinhan_Click);
@@ -182,11 +183,13 @@
             // textBox5
             // 
             this.textBox5.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.textBox5.Enabled = false;
             this.textBox5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBox5.Location = new System.Drawing.Point(20, 71);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
             this.textBox5.Size = new System.Drawing.Size(1229, 205);
             this.textBox5.TabIndex = 1;
             // 
@@ -213,7 +216,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(31, 85);
+            this.groupBox1.Location = new System.Drawing.Point(31, 81);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -232,7 +235,7 @@
             this.cobphai.Margin = new System.Windows.Forms.Padding(2);
             this.cobphai.Name = "cobphai";
             this.cobphai.Size = new System.Drawing.Size(213, 30);
-            this.cobphai.TabIndex = 10;
+            this.cobphai.TabIndex = 7;
             // 
             // cobmaphong
             // 
@@ -245,11 +248,14 @@
             // 
             // dateTimengayvao
             // 
+            this.dateTimengayvao.CustomFormat = "dd/MM/yyyy";
+            this.dateTimengayvao.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimengayvao.Location = new System.Drawing.Point(918, 77);
             this.dateTimengayvao.Margin = new System.Windows.Forms.Padding(2);
             this.dateTimengayvao.Name = "dateTimengayvao";
             this.dateTimengayvao.Size = new System.Drawing.Size(213, 30);
             this.dateTimengayvao.TabIndex = 8;
+            this.dateTimengayvao.Value = new System.DateTime(2025, 7, 7, 0, 0, 0, 0);
             // 
             // txtLop
             // 
@@ -258,15 +264,19 @@
             this.txtLop.Multiline = true;
             this.txtLop.Name = "txtLop";
             this.txtLop.Size = new System.Drawing.Size(214, 29);
-            this.txtLop.TabIndex = 6;
+            this.txtLop.TabIndex = 3;
             // 
             // dateTimeNgaySinh
             // 
+            this.dateTimeNgaySinh.CustomFormat = "dd/MM/yyyy";
+            this.dateTimeNgaySinh.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTimeNgaySinh.Location = new System.Drawing.Point(530, 129);
             this.dateTimeNgaySinh.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTimeNgaySinh.MinDate = new System.DateTime(1900, 1, 1, 0, 0, 0, 0);
             this.dateTimeNgaySinh.Name = "dateTimeNgaySinh";
             this.dateTimeNgaySinh.Size = new System.Drawing.Size(214, 30);
-            this.dateTimeNgaySinh.TabIndex = 4;
+            this.dateTimeNgaySinh.TabIndex = 6;
+            this.dateTimeNgaySinh.Value = new System.DateTime(2005, 7, 7, 0, 0, 0, 0);
             // 
             // txtHo_Ten
             // 
@@ -275,25 +285,27 @@
             this.txtHo_Ten.Multiline = true;
             this.txtHo_Ten.Name = "txtHo_Ten";
             this.txtHo_Ten.Size = new System.Drawing.Size(214, 29);
-            this.txtHo_Ten.TabIndex = 3;
+            this.txtHo_Ten.TabIndex = 2;
             // 
             // txtMSSV
             // 
             this.txtMSSV.Location = new System.Drawing.Point(109, 32);
             this.txtMSSV.Margin = new System.Windows.Forms.Padding(2);
+            this.txtMSSV.MaxLength = 5;
             this.txtMSSV.Multiline = true;
             this.txtMSSV.Name = "txtMSSV";
             this.txtMSSV.Size = new System.Drawing.Size(214, 29);
-            this.txtMSSV.TabIndex = 3;
+            this.txtMSSV.TabIndex = 1;
             // 
             // txtSDT
             // 
             this.txtSDT.Location = new System.Drawing.Point(530, 76);
             this.txtSDT.Margin = new System.Windows.Forms.Padding(2);
+            this.txtSDT.MaxLength = 10;
             this.txtSDT.Multiline = true;
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(214, 29);
-            this.txtSDT.TabIndex = 3;
+            this.txtSDT.TabIndex = 5;
             // 
             // txtque
             // 
@@ -302,7 +314,7 @@
             this.txtque.Multiline = true;
             this.txtque.Name = "txtque";
             this.txtque.Size = new System.Drawing.Size(214, 29);
-            this.txtque.TabIndex = 3;
+            this.txtque.TabIndex = 4;
             // 
             // label3
             // 
@@ -356,7 +368,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.Color.White;
+            this.label4.ForeColor = System.Drawing.Color.Black;
             this.label4.Location = new System.Drawing.Point(13, 78);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
@@ -397,7 +409,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.Color.White;
+            this.label2.ForeColor = System.Drawing.Color.Black;
             this.label2.Location = new System.Drawing.Point(13, 32);
             this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
@@ -426,11 +438,12 @@
             // combtimphong
             // 
             this.combtimphong.FormattingEnabled = true;
-            this.combtimphong.Location = new System.Drawing.Point(683, 40);
+            this.combtimphong.Location = new System.Drawing.Point(991, 38);
             this.combtimphong.Margin = new System.Windows.Forms.Padding(2);
             this.combtimphong.Name = "combtimphong";
             this.combtimphong.Size = new System.Drawing.Size(213, 30);
-            this.combtimphong.TabIndex = 4;
+            this.combtimphong.TabIndex = 17;
+            this.combtimphong.Text = "Chọn phòng ";
             this.combtimphong.SelectedIndexChanged += new System.EventHandler(this.combtimphong_SelectedIndexChanged);
             // 
             // txtTimKiem
@@ -440,7 +453,7 @@
             this.txtTimKiem.Multiline = true;
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(272, 29);
-            this.txtTimKiem.TabIndex = 3;
+            this.txtTimKiem.TabIndex = 16;
             // 
             // label13
             // 
@@ -456,7 +469,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.BackColor = System.Drawing.Color.SteelBlue;
-            this.label12.Location = new System.Drawing.Point(526, 46);
+            this.label12.Location = new System.Drawing.Point(852, 41);
             this.label12.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(135, 22);
@@ -467,11 +480,11 @@
             // 
             this.btntimkiem.BackColor = System.Drawing.Color.DarkGray;
             this.btntimkiem.ForeColor = System.Drawing.Color.Black;
-            this.btntimkiem.Location = new System.Drawing.Point(931, 38);
+            this.btntimkiem.Location = new System.Drawing.Point(517, 38);
             this.btntimkiem.Margin = new System.Windows.Forms.Padding(2);
             this.btntimkiem.Name = "btntimkiem";
             this.btntimkiem.Size = new System.Drawing.Size(123, 30);
-            this.btntimkiem.TabIndex = 2;
+            this.btntimkiem.TabIndex = 18;
             this.btntimkiem.Text = "Tìm kiếm ";
             this.btntimkiem.UseVisualStyleBackColor = false;
             this.btntimkiem.Click += new System.EventHandler(this.btntimkiem_Click);
@@ -480,11 +493,11 @@
             // 
             this.btnluu.BackColor = System.Drawing.Color.DarkGray;
             this.btnluu.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.btnluu.Location = new System.Drawing.Point(146, 300);
+            this.btnluu.Location = new System.Drawing.Point(121, 300);
             this.btnluu.Margin = new System.Windows.Forms.Padding(2);
             this.btnluu.Name = "btnluu";
             this.btnluu.Size = new System.Drawing.Size(86, 32);
-            this.btnluu.TabIndex = 2;
+            this.btnluu.TabIndex = 11;
             this.btnluu.Text = "Lưu";
             this.btnluu.UseVisualStyleBackColor = false;
             this.btnluu.Click += new System.EventHandler(this.btnluu_Click);
@@ -519,6 +532,7 @@
             // textBox7
             // 
             this.textBox7.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.textBox7.Enabled = false;
             this.textBox7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.textBox7.Location = new System.Drawing.Point(20, 358);
             this.textBox7.Margin = new System.Windows.Forms.Padding(2);
@@ -546,6 +560,19 @@
             this.quảnLýToolStripMenuItem.Text = "Quản lý phòng";
             this.quảnLýToolStripMenuItem.Click += new System.EventHandler(this.quảnLýToolStripMenuItem_Click);
             // 
+            // btnclear
+            // 
+            this.btnclear.BackColor = System.Drawing.Color.DarkGray;
+            this.btnclear.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnclear.Location = new System.Drawing.Point(561, 300);
+            this.btnclear.Margin = new System.Windows.Forms.Padding(2);
+            this.btnclear.Name = "btnclear";
+            this.btnclear.Size = new System.Drawing.Size(110, 32);
+            this.btnclear.TabIndex = 14;
+            this.btnclear.Text = "Làm Sạch";
+            this.btnclear.UseVisualStyleBackColor = false;
+            this.btnclear.Click += new System.EventHandler(this.btnclear_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
@@ -561,6 +588,7 @@
             this.Controls.Add(this.btnthoat);
             this.Controls.Add(this.btnghinhan);
             this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.btnclear);
             this.Controls.Add(this.btnhuy);
             this.Controls.Add(this.btnxoa);
             this.Controls.Add(this.btnluu);
@@ -633,6 +661,7 @@
         private System.Windows.Forms.TextBox textBox7;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem quảnLýToolStripMenuItem;
+        private System.Windows.Forms.Button btnclear;
     }
 }
 

@@ -51,6 +51,7 @@ namespace QLKTX
             // 3. Điều hướng
             if (chucVu == "Quản lý")
             {
+                Program.HoTenNguoiDung = LayTenQuanLy(tenDangNhap);
                 Form1 form1 = new Form1();
                 form1.Show();
                 this.Hide();
@@ -131,6 +132,31 @@ namespace QLKTX
                 // Gọi hàm click của nút đăng nhập
                 btnDang_Nhap.PerformClick();
             }
+        }
+
+        private string LayTenQuanLy(string maQuanLy)
+        {
+            string hoTen = "Quản Lý"; // Giá trị mặc định
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    // Truy vấn bảng QuanLy
+                    string query = "SELECT HoTenQuanLy FROM QuanLy WHERE MaQuanLy = @Ma";
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Ma", maQuanLy);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null)
+                        {
+                            hoTen = result.ToString();
+                        }
+                    }
+                }
+            }
+            catch { }
+            return hoTen;
         }
     }
 }
