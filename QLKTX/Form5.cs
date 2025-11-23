@@ -18,8 +18,8 @@ namespace QLKTX
         {
             InitializeComponent();
         }
-        string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
-        //string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+        //string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
         DataSet ds = new DataSet();
         SqlDataAdapter daPhong;
         DataTable dt;
@@ -40,7 +40,7 @@ namespace QLKTX
                 dgDSP.Columns["MaPhong"].HeaderText = "Mã Phòng";
                 dgDSP.Columns["MaPhong"].Width = 250;
                 dgDSP.Columns["LoaiPhong"].HeaderText = "Loại Phòng";
-                dgDSP.Columns["LoaiPhong"].Width = 300;
+                dgDSP.Columns["LoaiPhong"].Width = 250;
                 dgDSP.Columns["Gia"].HeaderText = "Giá";
                 dgDSP.Columns["Gia"].Width = 300;
                 dgDSP.Columns["TrangThai"].HeaderText = "Trạng Thái";
@@ -48,7 +48,7 @@ namespace QLKTX
                 dgDSP.Columns["MaToaNha"].HeaderText = "Mã Tòa Nhà";
                 dgDSP.Columns["MaToaNha"].Width = 250;
                 dgDSP.Columns["TienDienNuoc"].HeaderText = "Tiền Điện Nước";
-                dgDSP.Columns["TienDienNuoc"].Width = 300;
+                dgDSP.Columns["TienDienNuoc"].Width = 250;
             }
             catch (Exception ex)    
             {
@@ -199,7 +199,6 @@ namespace QLKTX
             {
                 try
                 {
-
                     DataGridViewRow row = dgDSP.SelectedRows[0];
 
                     txtMaPhong.Text = row.Cells["MaPhong"].Value?.ToString();
@@ -531,6 +530,31 @@ namespace QLKTX
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    string sqlCheck = "SELECT COUNT(*) FROM SinhVien WHERE MaPhong = @ma";
+                    using (SqlCommand cmd = new SqlCommand(sqlCheck, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@ma", txtMaPhong.Text);
+                        int soSinhVien = (int)cmd.ExecuteScalar(); // Lấy số lượng sinh viên
+
+                        if (soSinhVien > 0)
+                        {
+                            MessageBox.Show($"Phòng {txtMaPhong.Text} đang có {soSinhVien} sinh viên.\nBạn phải chuyển sinh viên đi nơi khác trước khi xóa!",
+                                            "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            return; // Dừng lại ngay, không cho xóa
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi kiểm tra sinh viên: " + ex.Message);
+                return;
+            }
             //Phải chọn phòng trước khi xóa
             if (string.IsNullOrEmpty(txtMaPhong.Text))
             {
@@ -542,7 +566,6 @@ namespace QLKTX
                 return;
             }
 
-            //Tìm dòng dữ liệu trong DataTable
             DataRow row = dt.Rows.Find(txtMaPhong.Text);
             if (row == null)
             {
@@ -566,6 +589,11 @@ namespace QLKTX
             try
             {
                 this.BindingContext[dt].EndCurrentEdit(); // Chốt dữ liệu
+                if (dt.GetChanges() == null)
+                {
+                    MessageBox.Show("Không có thay đổi nào cần lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return; 
+                }
                 daPhong = new SqlDataAdapter("SELECT * FROM Phong", connectionString);
                 new SqlCommandBuilder(daPhong);
 
@@ -582,6 +610,8 @@ namespace QLKTX
             if (traloi == DialogResult.Yes)
             {
                 this.Close();
+                Form1 f1 = new Form1();
+                f1.Show();
             }
         }
 
@@ -605,7 +635,7 @@ namespace QLKTX
             
         }
 
-       
+      
     }
     
 }

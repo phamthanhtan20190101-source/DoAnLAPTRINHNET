@@ -15,10 +15,8 @@ namespace QLKTX
         public UCToaNha()
         {
             InitializeComponent();
-            // Gán sự kiện click cho tất cả thành phần con
             this.Click += (s, e) => OnSelect?.Invoke(this, e);
-            foreach (Control c in this.Controls) c.Click += (s, e) => OnSelect?.Invoke(this, e);
-         
+            foreach (Control c in this.Controls) c.Click += (s, e) => OnSelect?.Invoke(this, e);   
         }
         public event EventHandler OnSelect = null;
         public string MaToaNha { get; private set; }
@@ -29,7 +27,7 @@ namespace QLKTX
 
             lblTenToaNha.Text = ten;
             lblThongSo.Text = $"Đã dùng {daDung} / {tong} phòng";
-            if (daDung >= tong) lblThongSo.ForeColor = Color.Red; // Đổi màu đỏ nếu đầy
+            if (daDung >= tong) lblThongSo.ForeColor = Color.Red; 
             this.MaToaNha = ma;
 
             

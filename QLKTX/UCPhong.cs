@@ -21,7 +21,6 @@ namespace QLKTX
             var match = System.Text.RegularExpressions.Regex.Match(text ?? "", @"\d+");
             return match.Success ? int.Parse(match.Value) : 0;
         }
-
         public void SetData(string maPhong, string loaiPhong, int soLuongDaO)
         {
             int sucChua = LaySo(loaiPhong);

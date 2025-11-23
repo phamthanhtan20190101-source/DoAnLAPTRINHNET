@@ -19,8 +19,8 @@ namespace QLKTX
             LoadData();
         }
         string maToaNha;
-        string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
-        //string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+        //string connectionString = @"Data Source=ADMIN-PC\SQLEXPRESS;Initial Catalog=QL_KyTucXa;Integrated Security=True;TrustServerCertificate=True";
+        string connectionString = @"Data Source=LAPTOP-40KODIPL\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
 
 
         public TTPhong(string ma) // Constructor nhận mã
@@ -126,15 +126,5 @@ namespace QLKTX
             }
         }
 
-        private void ibtnThoat_Click(object sender, EventArgs e)
-        {
-            DialogResult traloi = MessageBox.Show("Bạn có muốn quay về màn hình chính?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (traloi == DialogResult.Yes)
-            {
-                Application.Restart();
-                Environment.Exit(0);
-            }
-        }
     }
 }
