@@ -107,8 +107,10 @@ namespace QLKTX
 
         private void btnthoat_Click(object sender, EventArgs e)
         {
-            // đóng form
+            // đóng form và quay về form đăng nhập
             this.Close();
+
+
 
         }
 

@@ -28,6 +28,7 @@ namespace QLKTX
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             TuDongCapNhatThangMoi();
             TaiDuLieuLenDataGird();
             TaiPhongVaoTimKiem();
@@ -102,12 +103,13 @@ namespace QLKTX
             if (dt.Select($"MSSV = '{txtMSSV.Text}'").Length > 0)
             {
                 MessageBox.Show("MSSV này đã tồn tại trong danh sách.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMSSV.Clear();
                 return;
             }
 
             try
             {
-                
+                txtMSSV.Focus();
                 DataRow newRow = dt.NewRow();
 
                 
@@ -170,6 +172,7 @@ namespace QLKTX
                 if (!Regex.IsMatch(txtMSSV.Text, @"^SV[0-9]{3}$"))
                 {
                     MessageBox.Show("MSSV phải có định dạng 'SV' theo sau là 3 chữ số (ví dụ: SV001).", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtMSSV.Clear();
                     txtMSSV.Focus();
                     return false;
                 }
@@ -178,6 +181,7 @@ namespace QLKTX
             if (!Regex.IsMatch(txtSDT.Text, @"^0[0-9]{9}$"))
             {
                 MessageBox.Show("Số điện thoại phải bắt đầu bằng 0 và có đúng 10 chữ số.", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSDT.Clear();
                 txtSDT.Focus();
                 return false;
             }
@@ -329,17 +333,55 @@ namespace QLKTX
 
         private void btnluu_Click(object sender, EventArgs e)
         {
+            // hỏi xác nhận yes thì lưu không thì hủy lưu
             try
             {
-                daSinhvien.Update(dt);
-                dt.AcceptChanges();
 
-                MessageBox.Show("Lưu vào cơ sở dữ liệu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+
+                // 2. Kiểm tra xem có thay đổi nào trong bảng không (Thêm/Sửa/Xóa)
+                DataTable changes = dt.GetChanges();
+
+                // Nếu không có gì thay đổi thì thông báo và thoát luôn
+                if (changes == null)
+                {
+                    MessageBox.Show("Không có thay đổi nào để lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // 3. Nếu có thay đổi, HIỆN HỘP THOẠI HỎI XÁC NHẬN (Theo yêu cầu của bạn)
+                DialogResult result = MessageBox.Show(
+                    "Bạn có chắc chắn muốn lưu các thay đổi vào cơ sở dữ liệu không?",
+                    "Xác nhận lưu",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // 4. Thực hiện cập nhật xuống CSDL
+                    // (SqlCommandBuilder giúp tự tạo lệnh Insert/Update/Delete)
+                    SqlCommandBuilder builder = new SqlCommandBuilder(daSinhvien);
+
+                    daSinhvien.Update(dt);
+
+                    // 5. Xác nhận dữ liệu trong DataTable đã đồng bộ
+                    dt.AcceptChanges();
+
+                    MessageBox.Show("Đã lưu các thay đổi vào cơ sở dữ liệu thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // (Tùy chọn) Tải lại dữ liệu để đảm bảo tươi mới, nhưng thường AcceptChanges là đủ
+                    // TaiDuLieuLenDataGird(); 
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi lưu vào CSDL: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi CSDL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Nếu lỗi, có thể bạn muốn hủy các thay đổi trên bảng để người dùng biết là chưa lưu được
+                // dt.RejectChanges(); 
             }
+
+
         }
 
 
@@ -627,7 +669,10 @@ namespace QLKTX
             }
         }
 
-
+        private void btnclear_Click(object sender, EventArgs e)
+        {
+            XoaTrangTextBoxes();
+        }
     }
 }
     

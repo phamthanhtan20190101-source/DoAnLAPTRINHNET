@@ -302,41 +302,47 @@ namespace QLKTX
         {
             if (string.IsNullOrEmpty(txtmssv.Text) || cobThangdong.SelectedIndex == -1 || string.IsNullOrEmpty(txtsotien.Text))
             {
-                MessageBox.Show("Vui lòng chọn sinh viên và tháng cần lưu.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn đầy đủ thông tin sinh viên và tháng đóng tiền.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            string mssv = txtmssv.Text.Trim();
+            int thang = cobThangdong.SelectedIndex + 1;
+            int nam = dateTimeNgayDong.Value.Year;
+
+            // 2. === KIỂM TRA TRÙNG LẶP  ===
+            // Kiểm tra xem sinh viên này đã đóng tiền cho tháng/năm này chưa
+            if (KiemTraDaDongTien(mssv, thang, nam))
+            {
+                MessageBox.Show($"Sinh viên {mssv} ĐÃ ĐÓNG TIỀN cho Tháng {thang}/{nam} rồi!\nKhông thể đóng trùng.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return; // Dừng lại ngay, không lưu
+            }
+
+            // 3. Hỏi xác nhận
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn lưu vào CSDL không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
 
-            // 2. BẮT ĐẦU QUÁ TRÌNH LƯU
+            // 4. BẮT ĐẦU QUÁ TRÌNH LƯU (Phần này giống code cũ nhưng an toàn hơn)
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction(); // Bắt đầu giao dịch
+                SqlTransaction transaction = conn.BeginTransaction();
 
                 try
                 {
-                    // === BƯỚC 1: CẬP NHẬT TRẠNG THÁI SINH VIÊN (UPDATE) ===
-                    // Chúng ta dùng lệnh SQL trực tiếp cho chắc chắn, thay vì dùng daSinhvien.Update() dễ bị lỗi cấu hình
+                    // A. CẬP NHẬT TRẠNG THÁI SINH VIÊN
                     string sqlUpdateSV = "UPDATE SinhVien SET TrangThaiTienPhong = N'Đã đóng' WHERE MSSV = @MSSV";
-
                     using (SqlCommand cmdUpdate = new SqlCommand(sqlUpdateSV, conn, transaction))
                     {
-                        cmdUpdate.Parameters.AddWithValue("@MSSV", txtmssv.Text);
+                        cmdUpdate.Parameters.AddWithValue("@MSSV", mssv);
                         cmdUpdate.ExecuteNonQuery();
                     }
 
-                    // === BƯỚC 2: TẠO MÃ THANH TOÁN (TT***_xx) ===
-                    string mssv = txtmssv.Text.Trim();
-                    int thang = cobThangdong.SelectedIndex + 1;
-                    int nam = dateTimeNgayDong.Value.Year;
-
-                    // Lấy 3 số cuối của MSSV (Ví dụ: SV001 -> 001)
+                    // B. TẠO MÃ THANH TOÁN
                     string baSoCuoi = mssv.Length >= 3 ? mssv.Substring(mssv.Length - 3) : mssv;
                     string maThanhToan = $"TT{baSoCuoi}_{thang}";
 
-                    // === BƯỚC 3: THÊM LỊCH SỬ ĐÓNG TIỀN (INSERT) ===
+                    // C. THÊM LỊCH SỬ ĐÓNG TIỀN
                     string sqlInsertLS = @"
                 INSERT INTO LichSuDongTien (MaThanhToan, MSSV, ThangDongTien, NamDongTien, SoTien, NgayDong) 
                 VALUES (@Ma, @MSSV, @Thang, @Nam, @Tien, @Ngay)";
@@ -348,73 +354,89 @@ namespace QLKTX
                         cmdInsert.Parameters.AddWithValue("@Thang", thang);
                         cmdInsert.Parameters.AddWithValue("@Nam", nam);
 
-                        // Xử lý tiền (Xóa dấu phẩy, chữ đ...)
                         decimal tien = 0;
                         string tienText = txtsotien.Text.Replace(",", "").Replace(".", "").Replace(" VND", "").Trim();
                         decimal.TryParse(tienText, out tien);
                         cmdInsert.Parameters.AddWithValue("@Tien", tien);
-
                         cmdInsert.Parameters.AddWithValue("@Ngay", dateTimeNgayDong.Value);
 
                         cmdInsert.ExecuteNonQuery();
                     }
 
-                    // === HOÀN TẤT ===
-                    transaction.Commit(); // Xác nhận lưu
+                    // D. HOÀN TẤT
+                    transaction.Commit();
+
+                    // Reset giao diện
                     MessageBox.Show($"Lưu thành công!\nMã GD: {maThanhToan}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                   
-
-                    // Tải lại Grid để thấy trạng thái mới nhất từ CSDL
+                    txtsotien.Text = "";
+                    cobThangdong.SelectedIndex = -1;
+                    radiNhanTien.Checked = false;
                     TaiDuLieuLenDataGird();
-                }
-                catch (SqlException sqlEx)
-                {
-                    transaction.Rollback(); // Gặp lỗi thì hoàn tác mọi thứ
-
-                    // Bắt lỗi cụ thể để bạn dễ sửa
-                    if (sqlEx.Message.Contains("String or binary data would be truncated"))
-                    {
-                        MessageBox.Show("LỖI: Mã thanh toán quá dài so với cột trong CSDL.\nHãy mở SQL và sửa cột MaThanhToan thành VARCHAR(50).", "Lỗi CSDL");
-                    }
-                    else if (sqlEx.Message.Contains("Conversion failed when converting the varchar value"))
-                    {
-                        MessageBox.Show($"LỖI: CSDL vẫn đang để cột MaThanhToan là kiểu SỐ (INT).\nCode đang cố gửi chữ '{txtmssv.Text}' vào.\n\nHãy chạy lệnh SQL tôi gửi ở bước trước để đổi sang VARCHAR.", "Sai kiểu dữ liệu");
-                    }
-                    else if (sqlEx.Number == 2627) // Trùng khóa chính
-                    {
-                        MessageBox.Show("Sinh viên này đã có lịch sử đóng tiền cho tháng này rồi (Trùng mã thanh toán).", "Trùng lặp");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Lỗi SQL: " + sqlEx.Message);
-                    }
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    MessageBox.Show("Lỗi chung: " + ex.Message);
+                    MessageBox.Show("Lỗi khi lưu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        private bool KiemTraDaDongTien(string mssv, int thang, int nam)
+        {
+            string query = "SELECT COUNT(*) FROM LichSuDongTien WHERE MSSV = @MSSV AND ThangDongTien = @Thang AND NamDongTien = @Nam";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@MSSV", mssv);
+                        cmd.Parameters.AddWithValue("@Thang", thang);
+                        cmd.Parameters.AddWithValue("@Nam", nam);
+
+                        int count = (int)cmd.ExecuteScalar();
+                        return count > 0; // Nếu > 0 tức là đã có dữ liệu -> Đã đóng
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return false; // Nếu lỗi kết nối thì tạm thời cho qua (hoặc xử lý tùy bạn)
+            }
+        }
         private void btnxuat_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtmssv.Text) || string.IsNullOrEmpty(txtsotien.Text))
+            if (string.IsNullOrEmpty(txtmssv.Text) || string.IsNullOrEmpty(txtsotien.Text) || cobThangdong.SelectedIndex == -1)
             {
-                MessageBox.Show("Vui lòng chọn sinh viên cần xuất phiếu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn đầy đủ thông tin để xuất phiếu.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // 2. TẠO NỘI DUNG PHIẾU (Sử dụng StringBuilder để nối chuỗi cho nhanh)
+            // 2. LẤY THÔNG TIN CẦN THIẾT
+            string mssv = txtmssv.Text.Trim();
+            int thang = cobThangdong.SelectedIndex + 1;
+            string baSoCuoi = mssv.Length >= 3 ? mssv.Substring(mssv.Length - 3) : mssv;
+            string maThanhToan = $"TT{baSoCuoi}_{thang}"; // Tạo mã TT001_10
+
+            // Lấy tên người quản lý (Dùng UserSession hoặc Program tùy theo cách bạn đã chọn)
+            string tenQuanLy = Program.HoTenNguoiDung;
+
+            // 3. TẠO NỘI DUNG PHIẾU
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("===============================================");
             sb.AppendLine("           PHIẾU THANH TOÁN TIỀN KÝ TÚC XÁ     ");
             sb.AppendLine("===============================================");
             sb.AppendLine("");
-            sb.AppendLine($"Mã phiếu: {DateTime.Now.ToString("yyyyMMddHHmmss")}"); // Mã tự sinh theo thời gian
-            sb.AppendLine($"Ngày lập: {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}");
+
+            // --- THÊM TÊN NGƯỜI LẬP Ở ĐÂY ---
+            sb.AppendLine($"Mã thanh toán  : {maThanhToan}");
+            sb.AppendLine($"Người lập phiếu: {tenQuanLy}"); // <--- Dòng mới thêm
+            sb.AppendLine($"Ngày lập phiếu : {DateTime.Now.ToString("dd/MM/yyyy HH:mm")}");
+            // --------------------------------
+
             sb.AppendLine("");
             sb.AppendLine("---------------- THÔNG TIN SINH VIÊN --------------");
             sb.AppendLine($"Mã số sinh viên : {txtmssv.Text}");
@@ -422,14 +444,11 @@ namespace QLKTX
             sb.AppendLine($"Phòng ở         : {txtphong.Text}");
             sb.AppendLine("");
             sb.AppendLine("---------------- CHI TIẾT THANH TOÁN --------------");
-
-            string thangDong = cobThangdong.SelectedIndex != -1 ? cobThangdong.Text : "Chưa chọn";
-            sb.AppendLine($"Nội dung thu    : Tiền phòng + Điện nước {thangDong}");
+            sb.AppendLine($"Nội dung thu    : Tiền phòng + Điện nước ({cobThangdong.Text})");
             sb.AppendLine($"Ngày đóng tiền  : {dateTimeNgayDong.Value.ToString("dd/MM/yyyy")}");
             sb.AppendLine($"Số tiền         : {txtsotien.Text}");
 
-            // Kiểm tra trạng thái đóng tiền
-            string trangThai = radiNhanTien.Checked ? "Đã thanh toán" : "Chưa thanh toán";
+            string trangThai = radiNhanTien.Checked ? "Đã thanh toán" : "Chưa thanh toán (Phiếu tạm)";
             sb.AppendLine($"Trạng thái      : {trangThai}");
 
             sb.AppendLine("");
@@ -438,29 +457,25 @@ namespace QLKTX
             sb.AppendLine("          (Ký tên)                 (Ký tên)");
             sb.AppendLine("");
             sb.AppendLine("");
-            sb.AppendLine("");
+
+            // Phần ký tên bên dưới có thể để tên người nộp, người lập đã có ở trên rồi
+            string tenSinhVien = txttensv.Text;
+            
+
             sb.AppendLine("===============================================");
 
-            // 3. MỞ HỘP THOẠI LƯU FILE (SaveFileDialog)
+            // 4. LƯU FILE
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Text File (*.txt)|*.txt"; // Chỉ cho phép lưu file .txt
+            sfd.Filter = "Text File (*.txt)|*.txt";
             sfd.Title = "Lưu Phiếu Thanh Toán";
-
-            // Đặt tên file mặc định: PhieuThu_MSSV_Ngay.txt
-            sfd.FileName = $"PhieuThu_{txtmssv.Text}_{DateTime.Now.ToString("ddMMyyyy")}.txt";
+            sfd.FileName = $"PhieuThu_{maThanhToan}_{mssv}.txt";
 
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
-                    // 4. GHI FILE
-                    // sfd.FileName chứa đường dẫn đầy đủ mà người dùng đã chọn
                     File.WriteAllText(sfd.FileName, sb.ToString());
-
                     MessageBox.Show($"Xuất phiếu thành công!\nĐường dẫn: {sfd.FileName}", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // (Tùy chọn) Mở file lên xem ngay sau khi lưu
-                    // System.Diagnostics.Process.Start("notepad.exe", sfd.FileName);
                 }
                 catch (Exception ex)
                 {
