@@ -109,6 +109,8 @@ namespace QLKTX
         {
             // đóng form và quay về form đăng nhập
             this.Close();
+            Form2 f2 = new Form2();
+            f2.Show();
 
 
 

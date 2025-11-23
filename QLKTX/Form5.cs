@@ -606,13 +606,9 @@ namespace QLKTX
 
         private void ibtnThoat_Click(object sender, EventArgs e)
         {
-            DialogResult traloi = MessageBox.Show("Bạn có chắc chắn muốn thoát?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (traloi == DialogResult.Yes)
-            {
                 this.Close();
                 Form1 f1 = new Form1();
                 f1.Show();
-            }
         }
 
         private void ibtnDangXuat_Click(object sender, EventArgs e)
@@ -631,8 +627,7 @@ namespace QLKTX
             this.Hide();
             TTToaNha frm = new TTToaNha();
             frm.FormClosed += (s, args) => this.Show();
-            frm.ShowDialog(); // Hiện form lên
-            
+            frm.ShowDialog(); 
         }
 
       

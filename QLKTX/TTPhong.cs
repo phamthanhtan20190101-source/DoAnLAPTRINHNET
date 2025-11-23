@@ -126,5 +126,11 @@ namespace QLKTX
             }
         }
 
+        private void ibtnThoat_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            Form5 f5 = new Form5();
+            f5.Show();
+        }
     }
 }

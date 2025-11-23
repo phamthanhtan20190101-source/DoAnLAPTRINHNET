@@ -15,7 +15,10 @@ namespace QLKTX
         public UCPhong()
         {
             InitializeComponent();
+            this.Click += (s, e) => OnSelect?.Invoke(this, e);
+            foreach (Control c in this.Controls) c.Click += (s, e) => OnSelect?.Invoke(this, e);
         }
+        public event EventHandler OnSelect = null;
         private int LaySo(string text)
         {
             var match = System.Text.RegularExpressions.Regex.Match(text ?? "", @"\d+");
