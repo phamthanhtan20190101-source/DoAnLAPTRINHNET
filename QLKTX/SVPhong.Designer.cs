@@ -30,8 +30,9 @@
         {
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblTenPhong = new System.Windows.Forms.Label();
             this.dgDSSV = new System.Windows.Forms.DataGridView();
+            this.lblTieuDe = new System.Windows.Forms.Label();
+            this.ibtnThoat = new FontAwesome.Sharp.IconButton();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgDSSV)).BeginInit();
             this.SuspendLayout();
@@ -39,37 +40,26 @@
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.textBox1.Location = new System.Drawing.Point(5, 106);
+            this.textBox1.Location = new System.Drawing.Point(5, 81);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(1256, 546);
+            this.textBox1.Size = new System.Drawing.Size(1256, 323);
             this.textBox1.TabIndex = 0;
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.SteelBlue;
             this.groupBox1.Controls.Add(this.dgDSSV);
-            this.groupBox1.Location = new System.Drawing.Point(12, 124);
+            this.groupBox1.Location = new System.Drawing.Point(12, 96);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1240, 517);
+            this.groupBox1.Size = new System.Drawing.Size(1240, 297);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Danh sách sinh viên";
             // 
-            // lblTenPhong
-            // 
-            this.lblTenPhong.AutoSize = true;
-            this.lblTenPhong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTenPhong.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTenPhong.Location = new System.Drawing.Point(0, 0);
-            this.lblTenPhong.Name = "lblTenPhong";
-            this.lblTenPhong.Size = new System.Drawing.Size(67, 26);
-            this.lblTenPhong.TabIndex = 2;
-            this.lblTenPhong.Text = "label1";
-            this.lblTenPhong.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // dgDSSV
             // 
+            this.dgDSSV.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dgDSSV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgDSSV.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgDSSV.Location = new System.Drawing.Point(3, 26);
@@ -77,16 +67,46 @@
             this.dgDSSV.RowHeadersWidth = 51;
             this.dgDSSV.RowTemplate.Height = 24;
             this.dgDSSV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgDSSV.Size = new System.Drawing.Size(1234, 488);
+            this.dgDSSV.Size = new System.Drawing.Size(1234, 268);
             this.dgDSSV.TabIndex = 0;
+            // 
+            // lblTieuDe
+            // 
+            this.lblTieuDe.AutoSize = true;
+            this.lblTieuDe.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTieuDe.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTieuDe.Location = new System.Drawing.Point(0, 0);
+            this.lblTieuDe.Name = "lblTieuDe";
+            this.lblTieuDe.Size = new System.Drawing.Size(67, 26);
+            this.lblTieuDe.TabIndex = 2;
+            this.lblTieuDe.Text = "label1";
+            this.lblTieuDe.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // ibtnThoat
+            // 
+            this.ibtnThoat.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.ibtnThoat.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ibtnThoat.IconChar = FontAwesome.Sharp.IconChar.CircleXmark;
+            this.ibtnThoat.IconColor = System.Drawing.Color.Red;
+            this.ibtnThoat.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.ibtnThoat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ibtnThoat.Location = new System.Drawing.Point(1074, 410);
+            this.ibtnThoat.Name = "ibtnThoat";
+            this.ibtnThoat.Size = new System.Drawing.Size(118, 72);
+            this.ibtnThoat.TabIndex = 26;
+            this.ibtnThoat.Text = "Thoát";
+            this.ibtnThoat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ibtnThoat.UseVisualStyleBackColor = false;
+            this.ibtnThoat.Click += new System.EventHandler(this.ibtnThoat_Click);
             // 
             // SVPhong
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1264, 664);
-            this.Controls.Add(this.lblTenPhong);
+            this.ClientSize = new System.Drawing.Size(1264, 487);
+            this.Controls.Add(this.ibtnThoat);
+            this.Controls.Add(this.lblTieuDe);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -104,7 +124,8 @@
 
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblTenPhong;
+        private System.Windows.Forms.Label lblTieuDe;
         private System.Windows.Forms.DataGridView dgDSSV;
+        private FontAwesome.Sharp.IconButton ibtnThoat;
     }
 }

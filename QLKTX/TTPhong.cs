@@ -31,29 +31,9 @@ namespace QLKTX
             LoadData();
             HienThiThongTin();
         }
-
-
         private void TTPhong_Load(object sender, EventArgs e) { LoadData(); }
-
         private void LoadData()
         {
-            /*flowLayoutPanel2.Controls.Clear();
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                // SQL: Lấy phòng VÀ đếm số sinh viên trong đó
-                string sql = @"SELECT P.MaPhong, P.LoaiPhong,
-                           (SELECT COUNT(*) FROM SinhVien SV WHERE SV.MaPhong = P.MaPhong) AS DaO
-                           FROM Phong P WHERE P.MaToaNha = @ma";
-                SqlCommand cmd = new SqlCommand(sql, conn);
-                cmd.Parameters.AddWithValue("@ma", maToaNha);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    UCPhong item = new UCPhong();
-                    item.SetData(reader["MaPhong"].ToString(), reader["LoaiPhong"].ToString(), Convert.ToInt32(reader["DaO"]));
-                    flowLayoutPanel2.Controls.Add(item);
-                }*/
             flowLayoutPanel2.Controls.Clear();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -61,13 +41,12 @@ namespace QLKTX
                 try
                 {
                     conn.Open();
-                    // SQL: Lấy phòng VÀ đếm số sinh viên trong đó
                     string sql = @"SELECT P.MaPhong, P.LoaiPhong,
                                (SELECT COUNT(*) FROM SinhVien SV WHERE SV.MaPhong = P.MaPhong) AS DaO
                                FROM Phong P WHERE P.MaToaNha = @ma";
 
                     SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@ma", maToaNha); // Biến này đã có dữ liệu nhờ Constructor ở trên
+                    cmd.Parameters.AddWithValue("@ma", maToaNha);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -79,6 +58,13 @@ namespace QLKTX
                         item.SetData(reader["MaPhong"].ToString(),
                                      reader["LoaiPhong"].ToString(),
                                      Convert.ToInt32(reader["DaO"]));
+
+                        item.OnSelect += (s, e) =>
+                        {
+                            // Mở form danh sách sinh viên
+                            SVPhong frmDS = new SVPhong(item.MaPhong);
+                            frmDS.ShowDialog();
+                        };
 
                         flowLayoutPanel2.Controls.Add(item);
                     }
@@ -112,13 +98,7 @@ namespace QLKTX
                         {
                             int tongPhong = reader["TongPhong"] != DBNull.Value ? Convert.ToInt32(reader["TongPhong"]) : 0;
                             int tongSV = reader["TongSV"] != DBNull.Value ? Convert.ToInt32(reader["TongSV"]) : 0;
-
-                            // Hiển thị lên Label (đã tạo ở bước thiết kế)
-                            // Nếu chưa có label thì dùng MessageBox hoặc đặt tiêu đề Form
-                            this.Text += $" | Tổng: {tongPhong} phòng - {tongSV} sinh viên";
-
-                            // Nếu có Label thì dùng dòng này:
-                            lblThongTinChung.Text = $"Tòa nhà {maToaNha}: Tổng {tongPhong} phòng, hiện có {tongSV} sinh viên.";
+                            lblThongTinChung.Text = $"Tòa nhà {maToaNha}: Số phòng: {tongPhong} phòng, hiện có {tongSV} sinh viên.";
                         }
                     }
                 }
@@ -128,9 +108,11 @@ namespace QLKTX
 
         private void ibtnThoat_Click(object sender, EventArgs e)
         {
-            this.Close();
-            Form5 f5 = new Form5();
+            Form f5 = new Form5();
             f5.Show();
+            this.Hide();
+
+
         }
     }
 }

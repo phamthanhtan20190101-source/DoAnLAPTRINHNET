@@ -16,9 +16,13 @@ namespace QLKTX
         {
             InitializeComponent();
             this.Click += (s, e) => OnSelect?.Invoke(this, e);
-            foreach (Control c in this.Controls) c.Click += (s, e) => OnSelect?.Invoke(this, e);
+            foreach (Control c in this.Controls)
+            {
+                c.Click += (s, e) => OnSelect?.Invoke(this, e);
+            }
         }
         public event EventHandler OnSelect = null;
+        public string MaPhong { get; private set; }
         private int LaySo(string text)
         {
             var match = System.Text.RegularExpressions.Regex.Match(text ?? "", @"\d+");
@@ -26,9 +30,19 @@ namespace QLKTX
         }
         public void SetData(string maPhong, string loaiPhong, int soLuongDaO)
         {
+            /*int sucChua = LaySo(loaiPhong);
+            lblTenPhong.Text = $"Phòng {maPhong} ({soLuongDaO} / {sucChua})";
+            if (soLuongDaO >= sucChua) lblTenPhong.ForeColor = Color.Red;*/
+
+            this.MaPhong = maPhong;
+
             int sucChua = LaySo(loaiPhong);
             lblTenPhong.Text = $"Phòng {maPhong} ({soLuongDaO} / {sucChua})";
-            if (soLuongDaO >= sucChua) lblTenPhong.ForeColor = Color.Red;
+
+            if (soLuongDaO >= sucChua)
+                lblTenPhong.ForeColor = Color.Red;
+            else
+                lblTenPhong.ForeColor = Color.Black;
         }
 
     }

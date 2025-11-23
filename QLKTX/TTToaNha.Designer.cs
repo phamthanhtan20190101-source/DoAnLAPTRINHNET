@@ -57,6 +57,7 @@
             this.ibtnThoat.TabIndex = 26;
             this.ibtnThoat.Text = "Thoát";
             this.ibtnThoat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ibtnThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibtnThoat.UseVisualStyleBackColor = false;
             this.ibtnThoat.Click += new System.EventHandler(this.ibtnThoat_Click);
             // 
