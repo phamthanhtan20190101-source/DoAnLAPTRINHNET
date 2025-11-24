@@ -40,33 +40,35 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(0, 63);
             this.flowLayoutPanel2.Margin = new System.Windows.Forms.Padding(4);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(888, 381);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(888, 395);
             this.flowLayoutPanel2.TabIndex = 0;
             // 
             // lblThongTinChung
             // 
             this.lblThongTinChung.AutoSize = true;
-            this.lblThongTinChung.Location = new System.Drawing.Point(16, 28);
+            this.lblThongTinChung.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblThongTinChung.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.lblThongTinChung.Location = new System.Drawing.Point(13, 9);
             this.lblThongTinChung.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblThongTinChung.Name = "lblThongTinChung";
-            this.lblThongTinChung.Size = new System.Drawing.Size(60, 22);
+            this.lblThongTinChung.Size = new System.Drawing.Size(83, 33);
             this.lblThongTinChung.TabIndex = 1;
             this.lblThongTinChung.Text = "label1";
             // 
             // ibtnThoat
             // 
-            this.ibtnThoat.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.ibtnThoat.BackColor = System.Drawing.Color.LightBlue;
+            this.ibtnThoat.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.ibtnThoat.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ibtnThoat.IconChar = FontAwesome.Sharp.IconChar.CircleXmark;
             this.ibtnThoat.IconColor = System.Drawing.Color.Red;
             this.ibtnThoat.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.ibtnThoat.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ibtnThoat.Location = new System.Drawing.Point(737, 451);
+            this.ibtnThoat.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ibtnThoat.Location = new System.Drawing.Point(0, 465);
             this.ibtnThoat.Name = "ibtnThoat";
-            this.ibtnThoat.Size = new System.Drawing.Size(118, 72);
+            this.ibtnThoat.Size = new System.Drawing.Size(893, 66);
             this.ibtnThoat.TabIndex = 25;
             this.ibtnThoat.Text = "Thoát";
-            this.ibtnThoat.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ibtnThoat.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ibtnThoat.UseVisualStyleBackColor = false;
             this.ibtnThoat.Click += new System.EventHandler(this.ibtnThoat_Click);

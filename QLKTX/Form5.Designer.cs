@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cboMaToaNha = new System.Windows.Forms.ComboBox();
             this.txtTienDN = new System.Windows.Forms.TextBox();
@@ -89,7 +89,7 @@
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.ForeColor = System.Drawing.Color.White;
-            this.groupBox1.Location = new System.Drawing.Point(21, 60);
+            this.groupBox1.Location = new System.Drawing.Point(27, 75);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
@@ -109,7 +109,7 @@
             this.cboMaToaNha.Margin = new System.Windows.Forms.Padding(2);
             this.cboMaToaNha.Name = "cboMaToaNha";
             this.cboMaToaNha.Size = new System.Drawing.Size(210, 27);
-            this.cboMaToaNha.TabIndex = 13;
+            this.cboMaToaNha.TabIndex = 1;
             // 
             // txtTienDN
             // 
@@ -119,7 +119,7 @@
             this.txtTienDN.Multiline = true;
             this.txtTienDN.Name = "txtTienDN";
             this.txtTienDN.Size = new System.Drawing.Size(211, 33);
-            this.txtTienDN.TabIndex = 12;
+            this.txtTienDN.TabIndex = 6;
             // 
             // cboLoaiPhong
             // 
@@ -132,7 +132,7 @@
             this.cboLoaiPhong.Margin = new System.Windows.Forms.Padding(2);
             this.cboLoaiPhong.Name = "cboLoaiPhong";
             this.cboLoaiPhong.Size = new System.Drawing.Size(210, 27);
-            this.cboLoaiPhong.TabIndex = 11;
+            this.cboLoaiPhong.TabIndex = 3;
             // 
             // cboTrangThai
             // 
@@ -142,7 +142,7 @@
             this.cboTrangThai.Margin = new System.Windows.Forms.Padding(2);
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(210, 27);
-            this.cboTrangThai.TabIndex = 10;
+            this.cboTrangThai.TabIndex = 5;
             // 
             // txtMaPhong
             // 
@@ -152,7 +152,7 @@
             this.txtMaPhong.Multiline = true;
             this.txtMaPhong.Name = "txtMaPhong";
             this.txtMaPhong.Size = new System.Drawing.Size(211, 33);
-            this.txtMaPhong.TabIndex = 3;
+            this.txtMaPhong.TabIndex = 2;
             // 
             // txtGia
             // 
@@ -162,7 +162,7 @@
             this.txtGia.Multiline = true;
             this.txtGia.Name = "txtGia";
             this.txtGia.Size = new System.Drawing.Size(211, 33);
-            this.txtGia.TabIndex = 3;
+            this.txtGia.TabIndex = 4;
             // 
             // label11
             // 
@@ -232,9 +232,9 @@
             // 
             // btnBoChon
             // 
-            this.btnBoChon.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnBoChon.BackColor = System.Drawing.Color.LightBlue;
             this.btnBoChon.ForeColor = System.Drawing.Color.Black;
-            this.btnBoChon.Location = new System.Drawing.Point(1184, 251);
+            this.btnBoChon.Location = new System.Drawing.Point(1190, 260);
             this.btnBoChon.Margin = new System.Windows.Forms.Padding(2);
             this.btnBoChon.Name = "btnBoChon";
             this.btnBoChon.Size = new System.Drawing.Size(110, 55);
@@ -247,7 +247,7 @@
             // 
             this.textBox5.BackColor = System.Drawing.Color.LightSteelBlue;
             this.textBox5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.textBox5.Location = new System.Drawing.Point(11, 49);
+            this.textBox5.Location = new System.Drawing.Point(17, 64);
             this.textBox5.Margin = new System.Windows.Forms.Padding(2);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
@@ -256,9 +256,9 @@
             // 
             // btnHuy
             // 
-            this.btnHuy.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnHuy.BackColor = System.Drawing.Color.LightBlue;
             this.btnHuy.ForeColor = System.Drawing.Color.Black;
-            this.btnHuy.Location = new System.Drawing.Point(691, 251);
+            this.btnHuy.Location = new System.Drawing.Point(709, 260);
             this.btnHuy.Margin = new System.Windows.Forms.Padding(2);
             this.btnHuy.Name = "btnHuy";
             this.btnHuy.Size = new System.Drawing.Size(110, 55);
@@ -269,9 +269,9 @@
             // 
             // btnXoa
             // 
-            this.btnXoa.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnXoa.BackColor = System.Drawing.Color.LightBlue;
             this.btnXoa.ForeColor = System.Drawing.Color.Black;
-            this.btnXoa.Location = new System.Drawing.Point(468, 251);
+            this.btnXoa.Location = new System.Drawing.Point(474, 260);
             this.btnXoa.Margin = new System.Windows.Forms.Padding(2);
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(110, 55);
@@ -282,9 +282,9 @@
             // 
             // btnLuu
             // 
-            this.btnLuu.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnLuu.BackColor = System.Drawing.Color.LightBlue;
             this.btnLuu.ForeColor = System.Drawing.Color.Black;
-            this.btnLuu.Location = new System.Drawing.Point(954, 251);
+            this.btnLuu.Location = new System.Drawing.Point(960, 260);
             this.btnLuu.Margin = new System.Windows.Forms.Padding(2);
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(110, 55);
@@ -295,9 +295,9 @@
             // 
             // btnSua
             // 
-            this.btnSua.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnSua.BackColor = System.Drawing.Color.LightBlue;
             this.btnSua.ForeColor = System.Drawing.Color.Black;
-            this.btnSua.Location = new System.Drawing.Point(243, 251);
+            this.btnSua.Location = new System.Drawing.Point(249, 260);
             this.btnSua.Margin = new System.Windows.Forms.Padding(2);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(110, 55);
@@ -308,9 +308,9 @@
             // 
             // btnThem
             // 
-            this.btnThem.BackColor = System.Drawing.Color.AntiqueWhite;
+            this.btnThem.BackColor = System.Drawing.Color.LightBlue;
             this.btnThem.ForeColor = System.Drawing.Color.Black;
-            this.btnThem.Location = new System.Drawing.Point(21, 251);
+            this.btnThem.Location = new System.Drawing.Point(33, 260);
             this.btnThem.Margin = new System.Windows.Forms.Padding(2);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(110, 55);
@@ -322,12 +322,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.MidnightBlue;
             this.label1.Location = new System.Drawing.Point(698, 9);
             this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(210, 25);
+            this.label1.Size = new System.Drawing.Size(253, 32);
             this.label1.TabIndex = 7;
             this.label1.Text = "QUẢN LÝ PHÒNG";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -348,26 +348,26 @@
             // 
             // dgDSP
             // 
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
-            this.dgDSP.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
+            this.dgDSP.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.dgDSP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgDSP.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgDSP.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgDSP.Location = new System.Drawing.Point(5, 32);
             this.dgDSP.Name = "dgDSP";
             this.dgDSP.ReadOnly = true;
             this.dgDSP.RowHeadersWidth = 62;
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black;
-            this.dgDSP.RowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black;
+            this.dgDSP.RowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgDSP.RowTemplate.Height = 28;
             this.dgDSP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgDSP.Size = new System.Drawing.Size(1652, 374);
@@ -399,7 +399,7 @@
             this.cboLocToaNha.Margin = new System.Windows.Forms.Padding(2);
             this.cboLocToaNha.Name = "cboLocToaNha";
             this.cboLocToaNha.Size = new System.Drawing.Size(166, 27);
-            this.cboLocToaNha.TabIndex = 4;
+            this.cboLocToaNha.TabIndex = 8;
             this.cboLocToaNha.SelectedIndexChanged += new System.EventHandler(this.cboLocToaNha_SelectedIndexChanged);
             // 
             // txtTimKiem
@@ -409,7 +409,7 @@
             this.txtTimKiem.Multiline = true;
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(210, 34);
-            this.txtTimKiem.TabIndex = 3;
+            this.txtTimKiem.TabIndex = 7;
             // 
             // label13
             // 
@@ -434,9 +434,9 @@
             // 
             // btnTimKiem
             // 
-            this.btnTimKiem.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnTimKiem.BackColor = System.Drawing.Color.LightBlue;
             this.btnTimKiem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnTimKiem.Location = new System.Drawing.Point(670, 24);
+            this.btnTimKiem.Location = new System.Drawing.Point(688, 30);
             this.btnTimKiem.Margin = new System.Windows.Forms.Padding(2);
             this.btnTimKiem.Name = "btnTimKiem";
             this.btnTimKiem.Size = new System.Drawing.Size(110, 55);

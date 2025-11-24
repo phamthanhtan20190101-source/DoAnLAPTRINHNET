@@ -113,6 +113,7 @@ namespace QLKTX
                 {
                     MessageBox.Show("Mã phòng không hợp lệ!\nPhải bắt đầu bằng A, B, C, D và kèm 3 số (Ví dụ: A101, C205).",
                                     "Lỗi định dạng",MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtMaPhong.Clear();
                     txtMaPhong.Focus();
                     return false;
                 }
@@ -122,6 +123,7 @@ namespace QLKTX
             if (!decimal.TryParse(txtGia.Text, out gia) || gia < 0)
             {
                 MessageBox.Show("Giá phòng phải là một số và lớn hơn không.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtGia.Clear();
                 txtGia.Focus(); 
                 return false;
             }
@@ -132,6 +134,7 @@ namespace QLKTX
                 if (!decimal.TryParse(txtTienDN.Text, out tienDN) || tienDN <= 0)
                 {
                     MessageBox.Show("Tiền điện nước phải là số và lớn hơn 0.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtTienDN.Clear();
                     txtTienDN.Focus(); 
                     return false;
                 }
@@ -173,14 +176,14 @@ namespace QLKTX
                 string sql = "SELECT * FROM Phong";
                 daPhong = new SqlDataAdapter(sql, conn);
 
-                // 2. TỰ ĐỘNG TẠO LỆNH INSERT/UPDATE/DELETE (Bắt buộc dòng này)
+                //TỰ ĐỘNG TẠO LỆNH INSERT/UPDATE/DELETE (Bắt buộc dòng này)
                 SqlCommandBuilder cmb = new SqlCommandBuilder(daPhong);
 
-                // 3. Đổ vào DataTable
+                //Đổ vào DataTable
                 dt = new DataTable();
                 daPhong.Fill(dt);
 
-                // 4. Gán khóa chính cho DataTable (Để tìm dòng khi Sửa dễ hơn)
+                // Gán khóa chính cho DataTable (Để tìm dòng khi Sửa dễ hơn)
                 // Giả sử cột MaPhong là khóa chính
                 dt.PrimaryKey = new DataColumn[] { dt.Columns["MaPhong"] };
 
@@ -190,7 +193,7 @@ namespace QLKTX
             dgDSP.ClearSelection();
             dgDSP.CurrentCell = null; 
 
-            // 2. Xóa trắng các ô Textbox (đề phòng sự kiện SelectionChanged đã lỡ chạy 1 lần)
+            //Xóa trắng các ô Textbox (đề phòng sự kiện SelectionChanged đã lỡ chạy 1 lần)
             Reset(); 
 
             this.ActiveControl = cboMaToaNha;
@@ -237,40 +240,54 @@ namespace QLKTX
 
         private bool KiemTraSucChua(string maToaNha)
         {
+            int sucChuaToiDa = 0;
+            int soPhongHienTai = 0;
+
+            // Lấy Sức Chứa Tối Đa từ SQL (Bảng ToaNha)
+            // (Số này cố định nên phải lấy từ SQL)
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
                 {
                     conn.Open();
-                    string sql = @"
-                SELECT 
-                    (SELECT SoLuongPhong FROM ToaNha WHERE MaToaNha = @ma) AS MaxSucChua,
-                    (SELECT COUNT(*) FROM Phong WHERE MaToaNha = @ma) AS HienCo";
-                    SqlCommand cmd = new SqlCommand(sql, conn);
-                    cmd.Parameters.AddWithValue("@ma", maToaNha);
-
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    string sql = "SELECT SoLuongPhong FROM ToaNha WHERE MaToaNha = @ma";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
                     {
-                        if (reader.Read())
-                        {
-                            int maxSucChua = Convert.ToInt32(reader["MaxSucChua"]);
-                            int hienCo = Convert.ToInt32(reader["HienCo"]);
-
-                            // Nếu Số phòng hiện có >= Sức chứa tối đa -> Đã đầy
-                            if (hienCo >= maxSucChua)
-                            {
-                                return false; // Hết chỗ
-                            }
-                        }
+                        cmd.Parameters.AddWithValue("@ma", maToaNha);
+                        object result = cmd.ExecuteScalar();
+                        if (result != null) sucChuaToiDa = Convert.ToInt32(result);
                     }
-                    return true; // Còn chỗ
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi kiểm tra sức chứa: " + ex.Message);
-                    return false; // Gặp lỗi thì chặn luôn cho an toàn
+                    MessageBox.Show("Lỗi kết nối: " + ex.Message);
+                    return false;
                 }
             }
+
+            //  Đếm số phòng hiện tại TRÊN LƯỚI (DataTable)
+            // Cách này đếm được cả các phòng vừa thêm mà chưa Lưu
+            foreach (DataRow row in dt.Rows)
+            {
+                // Chỉ đếm các dòng chưa bị xóa
+                if (row.RowState != DataRowState.Deleted)
+                {
+                    if (row["MaToaNha"].ToString() == maToaNha)
+                    {
+                        soPhongHienTai++;
+                    }
+                }
+            }
+
+            // So sánh
+            if (soPhongHienTai >= sucChuaToiDa)
+            {
+                MessageBox.Show($"Tòa nhà {maToaNha} đã đầy ({soPhongHienTai}/{sucChuaToiDa} phòng)!\nKhông thể thêm phòng mới.",
+                                "Quá tải", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false; // Chặn
+            }
+
+            return true; // Cho phép thêm
         }
 
         private bool KiemTraTrangThai(string maPhong, string loaiPhong, string trangThaiSua)
@@ -278,11 +295,11 @@ namespace QLKTX
             int soLuongToiDa = 0;
             int soLuongHienTai = 0;
 
-            // 1. Lấy số lượng tối đa (Sức chứa)
+            // Lấy số lượng tối đa (Sức chứa)
             if (loaiPhong.Contains("4")) soLuongToiDa = 4;
             else if (loaiPhong.Contains("6")) soLuongToiDa = 6;
 
-            // 2. Lấy số lượng hiện tại SinhVien
+            // Lấy số lượng hiện tại SinhVien
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -313,7 +330,7 @@ namespace QLKTX
                 return false; // Không hợp lệ
             }
 
-            // Logic B: Phòng chưa đủ người thì không được sửa thành 'Đầy'
+            //  Phòng chưa đủ người thì không được sửa thành 'Đầy'
             if (soLuongHienTai < soLuongToiDa && trangThaiSua == "Đầy")
             {
                 MessageBox.Show($"Phòng {maPhong} có {soLuongHienTai}/{soLuongToiDa} sinh viên.\nKhông thể chuyển trạng thái sang 'Đầy'!",
@@ -325,10 +342,36 @@ namespace QLKTX
         }
         private void btnhuy_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy tất cả các thay đổi chưa lưu không?", "Xác nhận hủy", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-                dt.RejectChanges();
-            MessageBox.Show("Đã hủy các thay đổi chưa lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (dt.GetChanges() != null)
+            {
+                // Nếu có thay đổi -> Hỏi xác nhận
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy tất cả các thay đổi chưa lưu không?",
+                                                      "Xác nhận hủy",
+                                                      MessageBoxButtons.YesNo,
+                                                      MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    // Hoàn tác dữ liệu trong DataTable
+                    dt.RejectChanges();
+                    MessageBox.Show("Đã hủy các thay đổi chưa lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    return; // Nếu chọn No thì dừng lại, không làm gì cả
+                }
+            }
+
+            // Làm sạch giao diện 
+            Reset();
+
+            // Bỏ chọn trên lưới để đẹp mắt
+            dgDSP.ClearSelection();
+            dgDSP.CurrentCell = null;
+
+            // Đưa con trỏ về ô đầu tiên
+            this.ActiveControl = cboMaToaNha;
+
         }
 
         private void cboLocToaNha_SelectedIndexChanged(object sender, EventArgs e)
@@ -338,7 +381,7 @@ namespace QLKTX
             {
                 return;
             }
-            // 2. Nếu chọn tất cả
+            //Nếu chọn tất cả
             if (cboLocToaNha.SelectedIndex == 0)
             {
                 dt.DefaultView.RowFilter = string.Empty;
@@ -347,10 +390,10 @@ namespace QLKTX
             {
                 string maToaNhaCanLoc = cboLocToaNha.Text;
 
-                // 3. Lọc theo cột MaToaNha
+                //Lọc theo cột MaToaNha
                 dt.DefaultView.RowFilter = $"MaToaNha = '{maToaNhaCanLoc}'";
 
-                // 4. Kiểm tra nếu không có kết quả nào
+                // Kiểm tra nếu không có kết quả nào
                 if (dt.DefaultView.Count == 0)
                 {
                     MessageBox.Show($"Không có phòng nào thuộc tòa nhà {maToaNhaCanLoc}.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -392,26 +435,28 @@ namespace QLKTX
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            // 1. Kiểm tra nhập liệu cơ bản
+            //Kiểm tra nhập liệu
             if (!KiemTraNhapLieu(true)) return;
 
-            // 2. Kiểm tra quy tắc đặt tên (Mã phòng phải bắt đầu bằng Mã tòa)
+            //KIỂM TRA SỨC CHỨA 
+            if (KiemTraSucChua(cboMaToaNha.Text) == false) return;
+
+            //Kiểm tra đặt tên
             string maToaNha = cboMaToaNha.Text;
             if (!txtMaPhong.Text.StartsWith(maToaNha))
             {
-                MessageBox.Show($"Mã phòng phải bắt đầu bằng '{maToaNha}' (VD: {maToaNha}101).", "Sai quy tắc", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Mã phòng phải bắt đầu bằng mã tòa nhà -'{maToaNha}'...", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaPhong.Clear();
                 txtMaPhong.Focus();
                 return;
             }
-
-            // 3. Kiểm tra trùng mã trong lưới
+            //Kiểm tra trùng mã
             if (dt.Rows.Find(txtMaPhong.Text) != null)
             {
-                MessageBox.Show("Mã phòng này đã tồn tại trong danh sách!", "Trùng lặp");
+                MessageBox.Show("Mã phòng này đã tồn tại!", "Trùng lặp");
                 return;
             }
 
-            // 4. Thêm vào lưới (KHÔNG KIỂM TRA SỨC CHỨA Ở ĐÂY NỮA)
             try
             {
                 DataRow row = dt.NewRow();
@@ -422,18 +467,14 @@ namespace QLKTX
                 row["TrangThai"] = "Trống";
                 row["TienDienNuoc"] = txtTienDN.Text;
 
-                dt.Rows.Add(row); // Cho phép thêm thoải mái
+                dt.Rows.Add(row); // Thêm vào lưới
 
                 Reset();
                 cboTrangThai.Text = "Trống";
-                MessageBox.Show("Đã thêm vào danh sách tạm (Chưa kiểm tra sức chứa).");
+                MessageBox.Show("Đã thêm vào danh sách tạm (Nhấn 'Lưu' để ghi xuống CSDL)", "Thông báo");
+                cboMaToaNha.Focus();
             }
             catch (Exception ex) { MessageBox.Show("Lỗi thêm: " + ex.Message); }
-
-
-
-            
-            
         }
 
         private void btnBoChon_Click(object sender, EventArgs e)
@@ -446,58 +487,75 @@ namespace QLKTX
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtMaPhong.Text))
+            //Kiểm tra xem có dòng nào đang được chọn trên lưới không
+            if (dgDSP.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn dòng cần sửa trong danh sách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn phòng cần sửa trên danh sách!", "Thông báo");
                 return;
             }
+
+            // === CHẶN SỬA KHÓA CHÍNH ===
+            // Lấy dữ liệu gốc đang nằm trên lưới (Database)
+            DataGridViewRow dongDangChon = dgDSP.SelectedRows[0];
+            string maPhongGoc = dongDangChon.Cells["MaPhong"].Value.ToString();
+            string maToaNhaGoc = dongDangChon.Cells["MaToaNha"].Value.ToString();
+
+            // So sánh với dữ liệu người dùng đang nhập trên ô Textbox/Combobox
+            if (txtMaPhong.Text != maPhongGoc)
+            {
+                MessageBox.Show("Không được phép sửa Mã Phòng (Khóa chính)!",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                txtMaPhong.Text = maPhongGoc; // Tự động trả về giá trị cũ
+                return;
+            }
+
+            if (cboMaToaNha.Text != maToaNhaGoc)
+            {
+                MessageBox.Show($"Không được phép chuyển phòng {maPhongGoc} sang tòa nhà khác!",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                cboMaToaNha.Text = maToaNhaGoc; // Tự động trả về giá trị cũ
+                return;
+            }
+            // ==========================================================
+
+            // Kiểm tra nhập liệu (Bỏ qua check mã phòng vì đã check ở trên rồi)
             if (!KiemTraNhapLieu(false)) return;
 
+            // Kiểm tra Logic Trạng thái (Giờ mới chạy đến đây)
             if (KiemTraTrangThai(txtMaPhong.Text, cboLoaiPhong.Text, cboTrangThai.Text) == false)
             {
-                return; 
-            }
-            DataRow row = dt.Rows.Find(txtMaPhong.Text);
-
-            if (row == null)
-            {
-                MessageBox.Show("Không tìm thấy Mã phòng này trong dữ liệu nguồn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            string toaNhaCu = row["MaToaNha"].ToString();
-            string toaNhaMoi = cboMaToaNha.Text;
-            if (toaNhaCu != toaNhaMoi)
+
+            // Thực hiện Sửa vào DataTable
+            DataRow row = dt.Rows.Find(txtMaPhong.Text); // Lúc này chắc chắn tìm thấy
+
+            if (row != null)
             {
-                if (KiemTraSucChua(toaNhaMoi) == false)
+                try
                 {
-                    cboMaToaNha.Text = toaNhaCu;
-                    return;
+                    row.BeginEdit();
+
+                    // Chỉ cập nhật các thông tin được phép sửa
+                    row["LoaiPhong"] = cboLoaiPhong.Text;
+                    row["Gia"] = decimal.Parse(txtGia.Text);
+                    row["TrangThai"] = cboTrangThai.Text;
+
+                    decimal tienDN = 0;
+                    if (!string.IsNullOrWhiteSpace(txtTienDN.Text))
+                        decimal.TryParse(txtTienDN.Text, out tienDN);
+                    row["TienDienNuoc"] = tienDN;
+
+                    row.EndEdit();
+
+                    MessageBox.Show("Đã sửa thông tin (Nhấn 'Lưu' để ghi xuống CSDL).");
                 }
-            }
-
-            try
-            {
-                row.BeginEdit(); // Mở chế độ chỉnh sửa dòng
-
-                row["MaToaNha"] = cboMaToaNha.Text;
-                row["LoaiPhong"] = cboLoaiPhong.Text;
-
-                row["Gia"] = decimal.Parse(txtGia.Text);
-                row["TrangThai"] = cboTrangThai.Text;
-                decimal tienDN = 0;
-                if (!string.IsNullOrWhiteSpace(txtTienDN.Text))
+                catch (Exception ex)
                 {
-                    decimal.TryParse(txtTienDN.Text, out tienDN);
+                    MessageBox.Show("Lỗi khi sửa: " + ex.Message);
                 }
-                row["TienDienNuoc"] = tienDN;
-
-                row.EndEdit(); 
-
-                MessageBox.Show("Đã sửa thông tin (Nhấn 'Lưu' để ghi xuống CSDL).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi khi sửa: " + ex.Message);
             }
         }
 
@@ -560,100 +618,30 @@ namespace QLKTX
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            /*try
+            try
             {
-                this.BindingContext[dt].EndCurrentEdit(); // Chốt dữ liệu
-                
+                this.BindingContext[dt].EndCurrentEdit();
+
+                // Kiểm tra có thay đổi không
                 if (dt.GetChanges() == null)
                 {
                     MessageBox.Show("Không có thay đổi nào cần lưu.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return; 
-                }
-                daPhong = new SqlDataAdapter("SELECT * FROM Phong", connectionString);
-                new SqlCommandBuilder(daPhong);
-
-                daPhong.Update(dt);
-                dt.AcceptChanges();
-                MessageBox.Show("Đã lưu thành công!");
-            }
-            catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }*/
-            try
-            {
-                this.BindingContext[dt].EndCurrentEdit(); // Chốt dữ liệu
-
-                // 1. Lọc ra các dòng MỚI THÊM để kiểm tra (Không check dòng sửa/xóa)
-                DataRow[] cacDongMoi = dt.Select(null, null, DataViewRowState.Added);
-
-                // Danh sách các tòa nhà đã kiểm tra (để tránh tính lặp lại)
-                List<string> daKiemTra = new List<string>();
-
-                foreach (DataRow row in cacDongMoi)
-                {
-                    string maToaNha = row["MaToaNha"].ToString();
-
-                    // Nếu tòa này chưa kiểm tra thì mới làm
-                    if (!daKiemTra.Contains(maToaNha))
-                    {
-                        daKiemTra.Add(maToaNha); // Đánh dấu đã kiểm
-
-                        // A. Lấy số liệu từ SQL (Sức chứa & Số đã có thực tế)
-                        int sucChuaMax = 0;
-                        int daCoTrongSQL = 0;
-
-                        using (SqlConnection conn = new SqlConnection(connectionString))
-                        {
-                            conn.Open();
-                            string sql = @"SELECT SoLuongPhong, 
-                                  (SELECT COUNT(*) FROM Phong WHERE MaToaNha = T.MaToaNha) AS HienCo 
-                                  FROM ToaNha T WHERE MaToaNha = @ma";
-                            SqlCommand cmd = new SqlCommand(sql, conn);
-                            cmd.Parameters.AddWithValue("@ma", maToaNha);
-
-                            using (SqlDataReader r = cmd.ExecuteReader())
-                            {
-                                if (r.Read())
-                                {
-                                    sucChuaMax = Convert.ToInt32(r["SoLuongPhong"]);
-                                    daCoTrongSQL = Convert.ToInt32(r["HienCo"]);
-                                }
-                            }
-                        }
-
-                        // B. Đếm số lượng đang chờ thêm trên lưới của tòa nhà này
-                        int dangChoThem = dt.Select($"MaToaNha = '{maToaNha}'", "", DataViewRowState.Added).Length;
-
-                        // C. SO SÁNH: Nếu (Đã có + Đang thêm) > Max
-                        if (daCoTrongSQL + dangChoThem > sucChuaMax)
-                        {
-                            int conLai = sucChuaMax - daCoTrongSQL;
-                            MessageBox.Show($"Tòa nhà {maToaNha} chỉ còn trống {conLai} chỗ.\nBạn đang cố thêm {dangChoThem} phòng -> Quá tải!\n\nHệ thống sẽ hủy các phòng vừa thêm của tòa này.",
-                                            "Lỗi quá tải", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                            // D. Xóa các dòng vừa thêm của tòa nhà này khỏi lưới
-                            foreach (DataRow rDel in dt.Select($"MaToaNha = '{maToaNha}'", "", DataViewRowState.Added))
-                            {
-                                rDel.RejectChanges(); // Hủy bỏ, biến mất khỏi lưới ngay lập tức
-                            }
-                            return; // Dừng lại, không lưu
-                        }
-                    }
-                }
-
-                // 2. Nếu không có gì thay đổi
-                if (dt.GetChanges() == null)
-                {
-                    MessageBox.Show("Không có thay đổi nào cần lưu.", "Thông báo");
                     return;
                 }
 
-                // 3. Lưu xuống SQL (Code cũ)
+                // Thực hiện Lưu
                 daPhong = new SqlDataAdapter("SELECT * FROM Phong", connectionString);
-                new SqlCommandBuilder(daPhong);
+                new SqlCommandBuilder(daPhong); // Tự sinh lệnh Insert/Update/Delete
+
                 daPhong.Update(dt);
-                dt.AcceptChanges();
-                MessageBox.Show("Đã lưu thành công!");
+                dt.AcceptChanges(); // Xác nhận đồng bộ
+
+                MessageBox.Show("Đã lưu thành công vào CSDL!", "Thành công");
             }
-            catch (Exception ex) { MessageBox.Show("Lỗi: " + ex.Message); }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi lưu: " + ex.Message, "Lỗi SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void ibtnThoat_Click(object sender, EventArgs e)

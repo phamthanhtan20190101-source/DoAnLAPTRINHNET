@@ -90,16 +90,16 @@ namespace QLKTX
         {
             if (!KiemTraNhapLieu(true))
             {
-                return; 
+                return;
             }
 
-            
+            // 2. Kiểm tra sức chứa phòng
             if (!KiemTraSucChuaPhong(cobmaphong.Text))
             {
-                return; 
+                return;
             }
 
-            
+            // 3. Kiểm tra trùng MSSV trong danh sách hiện tại
             if (dt.Select($"MSSV = '{txtMSSV.Text}'").Length > 0)
             {
                 MessageBox.Show("MSSV này đã tồn tại trong danh sách.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -112,7 +112,7 @@ namespace QLKTX
                 txtMSSV.Focus();
                 DataRow newRow = dt.NewRow();
 
-                
+                // 4. Điền dữ liệu
                 newRow["MSSV"] = txtMSSV.Text;
                 newRow["HoTen"] = txtHo_Ten.Text;
                 newRow["Lop"] = txtLop.Text;
@@ -124,26 +124,24 @@ namespace QLKTX
                 newRow["MaPhong"] = cobmaphong.Text;
                 newRow["TrangThaiTienPhong"] = "Chưa đóng";
 
-                
+                // 5. Thêm vào DataTable
                 dt.Rows.Add(newRow);
 
-               
-                dt.DefaultView.RowFilter = string.Empty;
-
-                combtimphong.SelectedIndex = 0;
+                // 6. Xử lý giao diện sau khi thêm
+                dt.DefaultView.RowFilter = string.Empty; // Xóa bộ lọc để hiện dòng mới
+                if (combtimphong.Items.Count > 0) combtimphong.SelectedIndex = 0; // Reset ô tìm kiếm
                 txtTimKiem.Text = "";
 
-                XoaTrangTextBoxes();
+                XoaTrangTextBoxes(); // Xóa trắng ô nhập
+                TaiPhongTheoGioiTinh(cobphai.Text); // Cập nhật lại danh sách phòng (nếu phòng vừa đầy)
 
-
-                TaiPhongTheoGioiTinh(cobphai.Text);
+                // === THÊM THÔNG BÁO Ở ĐÂY ===
+                MessageBox.Show("Thêm sinh viên vào danh sách thành công!\n(Dữ liệu chưa lưu vào CSDL, hãy nhấn nút 'Lưu' để hoàn tất)", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi thêm sinh viên vào danh sách: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
 
 
         }

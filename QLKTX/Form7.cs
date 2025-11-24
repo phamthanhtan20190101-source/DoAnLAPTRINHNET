@@ -43,7 +43,7 @@ namespace QLKTX
             }
             catch (Exception ex) { }
         }
-     
+
         private bool KiemTraMatKhauCu(string tk, string mk)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -76,44 +76,60 @@ namespace QLKTX
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
-            // --- BƯỚC 1: KIỂM TRA MẬT KHẨU CŨ ---
+
             if (string.IsNullOrEmpty(txtMatKhauCu.Text))
             {
-                MessageBox.Show("Bạn phải nhập mật khẩu cũ để xác nhận thay đổi.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập mật khẩu hiện tại để xác nhận thay đổi.", "Yêu cầu xác thực", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMatKhauCu.Focus();
                 return;
             }
 
+            // Kiểm tra mật khẩu cũ có đúng không
             if (!KiemTraMatKhauCu(_mssv, txtMatKhauCu.Text))
             {
-                MessageBox.Show("Mật khẩu cũ không chính xác!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Mật khẩu cũ không chính xác!", "Lỗi xác thực", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            // --- BƯỚC 2: THỰC HIỆN CẬP NHẬT ---
+
+            // 2.1. Kiểm tra SĐT (Luôn kiểm tra vì SĐT luôn hiển thị)
+            string sdtMoi = txtSDT.Text.Trim();
+            if (!System.Text.RegularExpressions.Regex.IsMatch(sdtMoi, @"^0\d{9}$"))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ!\n(Phải bắt đầu bằng 0 và đủ 10 số)", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSDT.Focus();
+                return;
+            }
+
+            // 2.2. Kiểm tra Mật khẩu mới (Chỉ kiểm tra NẾU người dùng có nhập)
+            bool coDoiMatKhau = !string.IsNullOrEmpty(txtMatKhauMoi.Text);
+            if (coDoiMatKhau)
+            {
+                if (txtMatKhauMoi.Text != txtXacNhanMK.Text)
+                {
+                    MessageBox.Show("Mật khẩu mới và Xác nhận mật khẩu không khớp.", "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
                     conn.Open();
 
-                    // A. Cập nhật Số điện thoại (Bảng SinhVien)
+                    // A. LUÔN CẬP NHẬT SỐ ĐIỆN THOẠI
                     string updateSDT = "UPDATE SinhVien SET SDT = @SDT WHERE MSSV = @MSSV";
                     using (SqlCommand cmd = new SqlCommand(updateSDT, conn))
                     {
-                        cmd.Parameters.AddWithValue("@SDT", txtSDT.Text);
+                        cmd.Parameters.AddWithValue("@SDT", sdtMoi);
                         cmd.Parameters.AddWithValue("@MSSV", _mssv);
                         cmd.ExecuteNonQuery();
                     }
 
-                    // B. Cập nhật Mật khẩu (Bảng TaiKhoan) - Chỉ nếu có nhập mật khẩu mới
-                    if (!string.IsNullOrEmpty(txtMatKhauMoi.Text))
+                    // B. CHỈ CẬP NHẬT MẬT KHẨU NẾU CÓ NHẬP MỚI
+                    if (coDoiMatKhau)
                     {
-                        if (txtMatKhauMoi.Text != txtXacNhanMK.Text)
-                        {
-                            MessageBox.Show("Mật khẩu mới và xác nhận không khớp.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            return;
-                        }
-
                         string updatePass = "UPDATE TaiKhoan SET MatKhau = @MatKhau WHERE TenDangNhap = @MSSV";
                         using (SqlCommand cmd = new SqlCommand(updatePass, conn))
                         {
@@ -123,14 +139,25 @@ namespace QLKTX
                         }
                     }
 
-                    MessageBox.Show("Cập nhật thông tin thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.Close(); // Đóng form sau khi lưu xong
+                    // Thông báo kết quả phù hợp
+                    if (coDoiMatKhau)
+                    {
+                        MessageBox.Show("Cập nhật Số điện thoại và Đổi mật khẩu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cập nhật Số điện thoại thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                    this.Close(); // Đóng form sau khi xong
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi cập nhật: " + ex.Message);
+                MessageBox.Show("Lỗi khi cập nhật: " + ex.Message, "Lỗi SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

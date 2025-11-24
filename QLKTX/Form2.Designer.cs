@@ -44,28 +44,30 @@
             // 
             // txtMatKhau
             // 
-            this.txtMatKhau.Location = new System.Drawing.Point(212, 179);
+            this.txtMatKhau.Location = new System.Drawing.Point(188, 143);
+            this.txtMatKhau.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtMatKhau.Multiline = true;
             this.txtMatKhau.Name = "txtMatKhau";
-            this.txtMatKhau.Size = new System.Drawing.Size(323, 35);
+            this.txtMatKhau.Size = new System.Drawing.Size(288, 29);
             this.txtMatKhau.TabIndex = 2;
             this.txtMatKhau.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_KeyDown);
             // 
             // txtTenDN
             // 
-            this.txtTenDN.Location = new System.Drawing.Point(212, 122);
+            this.txtTenDN.Location = new System.Drawing.Point(188, 98);
+            this.txtTenDN.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtTenDN.Multiline = true;
             this.txtTenDN.Name = "txtTenDN";
-            this.txtTenDN.Size = new System.Drawing.Size(323, 35);
+            this.txtTenDN.Size = new System.Drawing.Size(288, 29);
             this.txtTenDN.TabIndex = 1;
             this.txtTenDN.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_KeyDown);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(158, 323);
+            this.label5.Location = new System.Drawing.Point(140, 258);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(0, 20);
+            this.label5.Size = new System.Drawing.Size(0, 16);
             this.label5.TabIndex = 30;
             // 
             // lblMatKhau
@@ -73,9 +75,9 @@
             this.lblMatKhau.AutoSize = true;
             this.lblMatKhau.BackColor = System.Drawing.Color.SteelBlue;
             this.lblMatKhau.ForeColor = System.Drawing.Color.White;
-            this.lblMatKhau.Location = new System.Drawing.Point(85, 182);
+            this.lblMatKhau.Location = new System.Drawing.Point(76, 146);
             this.lblMatKhau.Name = "lblMatKhau";
-            this.lblMatKhau.Size = new System.Drawing.Size(79, 20);
+            this.lblMatKhau.Size = new System.Drawing.Size(64, 16);
             this.lblMatKhau.TabIndex = 31;
             this.lblMatKhau.Text = "Mật khẩu:";
             // 
@@ -84,29 +86,31 @@
             this.lblTenDN.AutoSize = true;
             this.lblTenDN.BackColor = System.Drawing.Color.SteelBlue;
             this.lblTenDN.ForeColor = System.Drawing.Color.White;
-            this.lblTenDN.Location = new System.Drawing.Point(70, 125);
+            this.lblTenDN.Location = new System.Drawing.Point(62, 100);
             this.lblTenDN.Name = "lblTenDN";
-            this.lblTenDN.Size = new System.Drawing.Size(124, 20);
+            this.lblTenDN.Size = new System.Drawing.Size(104, 16);
             this.lblTenDN.TabIndex = 32;
             this.lblTenDN.Text = "Tên đăng nhập: ";
             // 
             // lblDNHT
             // 
             this.lblDNHT.AutoSize = true;
-            this.lblDNHT.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblDNHT.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDNHT.ForeColor = System.Drawing.Color.MidnightBlue;
-            this.lblDNHT.Location = new System.Drawing.Point(222, 12);
+            this.lblDNHT.Location = new System.Drawing.Point(149, 19);
             this.lblDNHT.Name = "lblDNHT";
-            this.lblDNHT.Size = new System.Drawing.Size(244, 23);
+            this.lblDNHT.Size = new System.Drawing.Size(288, 25);
             this.lblDNHT.TabIndex = 29;
             this.lblDNHT.Text = "ĐĂNG NHẬP HỆ THỐNG ";
+            this.lblDNHT.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // btnDang_Nhap
             // 
-            this.btnDang_Nhap.BackColor = System.Drawing.Color.DarkGray;
-            this.btnDang_Nhap.Location = new System.Drawing.Point(262, 319);
+            this.btnDang_Nhap.BackColor = System.Drawing.Color.SkyBlue;
+            this.btnDang_Nhap.Location = new System.Drawing.Point(233, 255);
+            this.btnDang_Nhap.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnDang_Nhap.Name = "btnDang_Nhap";
-            this.btnDang_Nhap.Size = new System.Drawing.Size(135, 57);
+            this.btnDang_Nhap.Size = new System.Drawing.Size(120, 46);
             this.btnDang_Nhap.TabIndex = 4;
             this.btnDang_Nhap.Text = "Đăng nhập ";
             this.btnDang_Nhap.UseVisualStyleBackColor = false;
@@ -115,17 +119,18 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(218, 71);
+            this.label1.Location = new System.Drawing.Point(194, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(0, 20);
+            this.label1.Size = new System.Drawing.Size(0, 16);
             this.label1.TabIndex = 27;
             // 
             // checkHienMK
             // 
             this.checkHienMK.AutoSize = true;
-            this.checkHienMK.Location = new System.Drawing.Point(477, 284);
+            this.checkHienMK.Location = new System.Drawing.Point(424, 227);
+            this.checkHienMK.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkHienMK.Name = "checkHienMK";
-            this.checkHienMK.Size = new System.Drawing.Size(142, 24);
+            this.checkHienMK.Size = new System.Drawing.Size(117, 20);
             this.checkHienMK.TabIndex = 3;
             this.checkHienMK.Text = "Hiện mật khẩu ";
             this.checkHienMK.UseVisualStyleBackColor = true;
@@ -135,35 +140,38 @@
             // 
             this.textBox3.BackColor = System.Drawing.Color.SteelBlue;
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(46, 86);
+            this.textBox3.Location = new System.Drawing.Point(41, 69);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox3.Multiline = true;
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(559, 166);
+            this.textBox3.Size = new System.Drawing.Size(497, 134);
             this.textBox3.TabIndex = 23;
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(245, 148);
+            this.textBox2.Location = new System.Drawing.Point(218, 118);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 26);
+            this.textBox2.Size = new System.Drawing.Size(89, 22);
             this.textBox2.TabIndex = 24;
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.LightSteelBlue;
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(35, 75);
+            this.textBox1.Location = new System.Drawing.Point(31, 60);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(584, 189);
+            this.textBox1.Size = new System.Drawing.Size(520, 152);
             this.textBox1.TabIndex = 25;
             // 
             // Form2
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(635, 387);
+            this.ClientSize = new System.Drawing.Size(564, 310);
             this.Controls.Add(this.txtMatKhau);
             this.Controls.Add(this.txtTenDN);
             this.Controls.Add(this.label5);
@@ -176,6 +184,7 @@
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form2";
             this.Text = "Form2";
             this.Load += new System.EventHandler(this.Form2_Load);

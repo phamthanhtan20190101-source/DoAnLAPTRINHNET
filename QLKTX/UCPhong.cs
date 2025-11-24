@@ -30,9 +30,6 @@ namespace QLKTX
         }
         public void SetData(string maPhong, string loaiPhong, int soLuongDaO)
         {
-            /*int sucChua = LaySo(loaiPhong);
-            lblTenPhong.Text = $"Phòng {maPhong} ({soLuongDaO} / {sucChua})";
-            if (soLuongDaO >= sucChua) lblTenPhong.ForeColor = Color.Red;*/
 
             this.MaPhong = maPhong;
 
