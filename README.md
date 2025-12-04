@@ -5,8 +5,14 @@
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-CC2927?style=for-the-badge&logo=microsoft-sql-server)
 ![WinForms](https://img.shields.io/badge/UI-Windows%20Forms-blue?style=for-the-badge)
 
-> **Đồ án môn học Lập trình .NET**
-> Ứng dụng Desktop giúp số hóa quy trình quản lý sinh viên, phòng ở và tài chính tại ký túc xá trường Đại học.
+📘 *Đồ án môn Lập trình .Net (TIE501)*  
+
+---
+
+## 🧩 Giới thiệu  
+Đây là **Đồ án Quản lý ký túc xá** được phát triển trong khuôn khổ môn **Lập trình .Net** tại **Trường Đại học An Giang – Khoa Công nghệ Thông tin**.  
+Ứng dụng được xây dựng bằng **C#**
+> Đồ án giúp số hóa quy trình quản lý sinh viên, phòng ở và tài chính tại ký túc xá trường Đại học.
 
 ---
 
@@ -16,35 +22,22 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 
 ### 👮‍♂️ Dành cho Quản Lý (Admin)
 - **Quản lý Sinh viên:**
-  - Thêm, Xóa, Sửa hồ sơ sinh viên.
+  - **Thêm, Xóa, Sửa** hồ sơ sinh viên.
   - **Tự động gợi ý** phòng còn trống và phù hợp giới tính.
-  - Tìm kiếm thông minh (theo MSSV, Tên) và Lọc theo Tòa/Phòng.
+  - **Tìm kiếm thông minh** (theo MSSV, Tên) và **Lọc theo tòa nhà/phòng**.
 - **Quản lý Phòng & Tòa nhà:**
-  - **Sơ đồ trực quan (Card View):** Xem trạng thái lấp đầy của từng tòa nhà.
-  - **Kiểm soát sức chứa:** Chặn thêm người nếu phòng đã đầy (Logic chặt chẽ).
-  - Cập nhật giá phòng, điện nước.
-- **Quản lý Tài chính (Quan trọng):**
+  - **Sơ đồ trực quan (Card View):** Xem trạng thái của từng tòa nhà và sinh viên cư trú tại từng tòa nhà/phòng.
+  - **Kiểm soát sức chứa:** Chặn thêm người nếu phòng đã đầy (logic chặt chẽ).
+  - **Cập nhật giá phòng, điện nước**.
+- **Quản lý Tài chính:**
   - 💰 **Ghi nhận đóng tiền:** Tính tổng tiền tự động (Giá phòng + Điện nước).
   - 🧾 **Xuất phiếu thu:** Xuất hóa đơn ra file `.txt` để in ấn.
   - 🔒 **Giao dịch an toàn:** Sử dụng `SQL Transaction` để đảm bảo dữ liệu tiền bạc không bị sai lệch.
 
 ### 👨‍🎓 Dành cho Sinh Viên (User)
 - **Tra cứu thông tin:** Xem hồ sơ cá nhân, thông tin phòng đang ở.
-- **Lịch sử giao dịch:** Xem lại chi tiết các lần đóng tiền (Ngày đóng, Số tiền) để đối soát.
-- **Tiện ích:** Tự đổi Mật khẩu và Cập nhật Số điện thoại liên lạc.
-
----
-
-## 📸 Hình Ảnh Demo
-
-| **Màn hình Đăng nhập** | **Dashboard Quản lý** |
-|:---:|:---:|
-| <img width="625" height="436" alt="Ảnh chụp màn hình 2025-11-26 022515" src="https://github.com/user-attachments/assets/8441b400-5306-4d4b-ace8-2b5bf9e1a439" />
- | ![Admin](https://via.placeholder.com/400x250?text=Giao+Dien+Quan+Ly) |
-
-| **Sơ đồ Tòa nhà (Card View)** | **Ghi nhận Đóng tiền** |
-|:---:|:---:|
-| ![ToaNha](https://via.placeholder.com/400x250?text=So+Do+Toa+Nha) | ![Payment](https://via.placeholder.com/400x250?text=Chuc+Nang+Thu+Tien) |
+- **Lịch sử giao dịch:** Xem lại chi tiết các lần đóng tiền (Ngày đóng, Số tiền) để dễ kiểm soát các lần giao dịch.
+- **Tiện ích:** Tự đổi mật khẩu và cập nhật số điện thoại liên lạc.
 
 ---
 
