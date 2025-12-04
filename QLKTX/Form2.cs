@@ -79,7 +79,7 @@ namespace QLKTX
         {
             string chucVu = null;
 
-            // Dùng query này để lấy ChucVu từ bảng TaiKhoan (theo file SQL của bạn)
+            // Dùng query này để lấy ChucVu từ bảng TaiKhoan 
             string query = "SELECT ChucVu FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap AND MatKhau = @MatKhau";
 
             try
@@ -136,7 +136,7 @@ namespace QLKTX
 
         private string LayTenQuanLy(string maQuanLy)
         {
-            string hoTen = "Quản Lý"; // Giá trị mặc định
+            string hoTen = "Quản Lý"; 
             try
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
@@ -158,5 +158,7 @@ namespace QLKTX
             catch { }
             return hoTen;
         }
+
+       
     }
 }

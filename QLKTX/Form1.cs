@@ -337,7 +337,7 @@ namespace QLKTX
 
                 
 
-                // 2. Kiểm tra xem có thay đổi nào trong bảng không (Thêm/Sửa/Xóa)
+                //Kiểm tra xem có thay đổi nào trong bảng không (Thêm/Sửa/Xóa)
                 DataTable changes = dt.GetChanges();
 
                 // Nếu không có gì thay đổi thì thông báo và thoát luôn
@@ -347,7 +347,7 @@ namespace QLKTX
                     return;
                 }
 
-                // 3. Nếu có thay đổi, HIỆN HỘP THOẠI HỎI XÁC NHẬN (Theo yêu cầu của bạn)
+                //Nếu có thay đổi, HIỆN HỘP THOẠI HỎI XÁC NHẬN
                 DialogResult result = MessageBox.Show(
                     "Bạn có chắc chắn muốn lưu các thay đổi vào cơ sở dữ liệu không?",
                     "Xác nhận lưu",
@@ -356,27 +356,21 @@ namespace QLKTX
 
                 if (result == DialogResult.Yes)
                 {
-                    // 4. Thực hiện cập nhật xuống CSDL
+                    //Thực hiện cập nhật xuống CSDL
                     // (SqlCommandBuilder giúp tự tạo lệnh Insert/Update/Delete)
                     SqlCommandBuilder builder = new SqlCommandBuilder(daSinhvien);
 
                     daSinhvien.Update(dt);
 
-                    // 5. Xác nhận dữ liệu trong DataTable đã đồng bộ
+                    //Xác nhận dữ liệu trong DataTable đã đồng bộ
                     dt.AcceptChanges();
 
                     MessageBox.Show("Đã lưu các thay đổi vào cơ sở dữ liệu thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                    // (Tùy chọn) Tải lại dữ liệu để đảm bảo tươi mới, nhưng thường AcceptChanges là đủ
-                    // TaiDuLieuLenDataGird(); 
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi khi lưu dữ liệu: " + ex.Message, "Lỗi CSDL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                // Nếu lỗi, có thể bạn muốn hủy các thay đổi trên bảng để người dùng biết là chưa lưu được
-                // dt.RejectChanges(); 
             }
 
 
@@ -620,11 +614,11 @@ namespace QLKTX
             int thangHienTai = DateTime.Now.Month;
             int namHienTai = DateTime.Now.Year;
 
-            // 2. Lấy thời gian lần cuối cập nhật từ Settings của ứng dụng
+            //Lấy thời gian lần cuối cập nhật từ Settings của ứng dụng
             int thangLuu = Properties.Settings.Default.ThangCapNhat;
             int namLuu = Properties.Settings.Default.NamCapNhat;
 
-            // 3. So sánh: Nếu sang tháng mới hoặc năm mới
+            //So sánh: Nếu sang tháng mới hoặc năm mới
             if (thangHienTai != thangLuu || namHienTai > namLuu)
             {
                 // Hỏi xác nhận
@@ -649,7 +643,7 @@ namespace QLKTX
                             }
                         }
 
-                        // 4. QUAN TRỌNG: Lưu lại tháng hiện tại vào Settings để không hỏi lại nữa
+                        // QUAN TRỌNG: Lưu lại tháng hiện tại vào Settings để không hỏi lại nữa
                         Properties.Settings.Default.ThangCapNhat = thangHienTai;
                         Properties.Settings.Default.NamCapNhat = namHienTai;
                         Properties.Settings.Default.Save(); // Lệnh lưu xuống máy

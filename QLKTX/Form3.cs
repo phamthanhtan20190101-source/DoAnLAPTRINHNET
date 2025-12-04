@@ -66,7 +66,6 @@ namespace QLKTX
 
                                 if (reader["NgayVao"] != DBNull.Value)
                                 {
-                                    // Lưu ý: Trong Designer của bạn tên là "ngayvao" (viết thường)
                                     ngayvao.Text = Convert.ToDateTime(reader["NgayVao"]).ToString("dd/MM/yyyy");
                                 }
                             }
@@ -98,7 +97,6 @@ namespace QLKTX
             }
 
             // 3. Khởi tạo Form 6 và truyền dữ liệu sang
-            // (Đảm bảo Form6 của bạn đã có hàm khởi tạo nhận 3 tham số này)
             Form6 fLichSu = new Form6(mssv, hoten, phong);
 
             // 4. Hiển thị Form Lịch sử

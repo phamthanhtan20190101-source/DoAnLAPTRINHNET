@@ -176,7 +176,7 @@ namespace QLKTX
                 string sql = "SELECT * FROM Phong";
                 daPhong = new SqlDataAdapter(sql, conn);
 
-                //TỰ ĐỘNG TẠO LỆNH INSERT/UPDATE/DELETE (Bắt buộc dòng này)
+                //TỰ ĐỘNG TẠO LỆNH INSERT/UPDATE/DELETE 
                 SqlCommandBuilder cmb = new SqlCommandBuilder(daPhong);
 
                 //Đổ vào DataTable
@@ -184,19 +184,18 @@ namespace QLKTX
                 daPhong.Fill(dt);
 
                 // Gán khóa chính cho DataTable (Để tìm dòng khi Sửa dễ hơn)
-                // Giả sử cột MaPhong là khóa chính
+                //  MaPhong là khóa chính
                 dt.PrimaryKey = new DataColumn[] { dt.Columns["MaPhong"] };
 
-                // 5. Hiển thị lên lưới
+                // Hiển thị lên lưới
                 dgDSP.DataSource = dt;
             }
-            dgDSP.ClearSelection();
-            dgDSP.CurrentCell = null; 
+            //dgDSP.ClearSelection();
+            //dgDSP.CurrentCell = null; 
 
-            //Xóa trắng các ô Textbox (đề phòng sự kiện SelectionChanged đã lỡ chạy 1 lần)
-            Reset(); 
+            //Reset(); 
 
-            this.ActiveControl = cboMaToaNha;
+            //this.ActiveControl = cboMaToaNha;
         }
         private void dgDSP_SelectionChanged(object sender, EventArgs e)
         {
@@ -214,9 +213,7 @@ namespace QLKTX
                     cboTrangThai.Text = row.Cells["TrangThai"].Value?.ToString();
 
                     // Ô Giá phòng
-                    // Có thể format thêm dấu phẩy tiền tệ nếu muốn: string.Format("{0:0,0}", ...)
                     txtGia.Text = row.Cells["Gia"].Value?.ToString();
-
                    
                     if (row.Cells["TienDienNuoc"].Value != null)
                     {
@@ -244,7 +241,6 @@ namespace QLKTX
             int soPhongHienTai = 0;
 
             // Lấy Sức Chứa Tối Đa từ SQL (Bảng ToaNha)
-            // (Số này cố định nên phải lấy từ SQL)
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 try
@@ -266,7 +262,6 @@ namespace QLKTX
             }
 
             //  Đếm số phòng hiện tại TRÊN LƯỚI (DataTable)
-            // Cách này đếm được cả các phòng vừa thêm mà chưa Lưu
             foreach (DataRow row in dt.Rows)
             {
                 // Chỉ đếm các dòng chưa bị xóa
@@ -335,10 +330,10 @@ namespace QLKTX
             {
                 MessageBox.Show($"Phòng {maPhong} có {soLuongHienTai}/{soLuongToiDa} sinh viên.\nKhông thể chuyển trạng thái sang 'Đầy'!",
                                 "Lỗi logic", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return false; // Không hợp lệ
+                return false; 
             }
 
-            return true; // Hợp lệ
+            return true; 
         }
         private void btnhuy_Click(object sender, EventArgs e)
         {
@@ -358,14 +353,12 @@ namespace QLKTX
                 }
                 else
                 {
-                    return; // Nếu chọn No thì dừng lại, không làm gì cả
+                    return; 
                 }
             }
 
             // Làm sạch giao diện 
             Reset();
-
-            // Bỏ chọn trên lưới để đẹp mắt
             dgDSP.ClearSelection();
             dgDSP.CurrentCell = null;
 
@@ -435,8 +428,16 @@ namespace QLKTX
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            //Kiểm tra nhập liệu
             if (!KiemTraNhapLieu(true)) return;
+
+            if (cboTrangThai.Text == "Đầy")
+            {
+                MessageBox.Show("Phòng chưa có sinh viên nên không thể là 'Đầy'.\nVui lòng chọn trạng thái 'Trống'.",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboTrangThai.Focus(); 
+                cboTrangThai.SelectedIndex=-1;
+                return; 
+            }
 
             //KIỂM TRA SỨC CHỨA 
             if (KiemTraSucChua(cboMaToaNha.Text) == false) return;
@@ -467,7 +468,7 @@ namespace QLKTX
                 row["TrangThai"] = "Trống";
                 row["TienDienNuoc"] = txtTienDN.Text;
 
-                dt.Rows.Add(row); // Thêm vào lưới
+                dt.Rows.Add(row); // Thêm
 
                 Reset();
                 cboTrangThai.Text = "Trống";
@@ -487,7 +488,6 @@ namespace QLKTX
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            //Kiểm tra xem có dòng nào đang được chọn trên lưới không
             if (dgDSP.SelectedRows.Count == 0)
             {
                 MessageBox.Show("Vui lòng chọn phòng cần sửa trên danh sách!", "Thông báo");
@@ -523,14 +523,14 @@ namespace QLKTX
             // Kiểm tra nhập liệu (Bỏ qua check mã phòng vì đã check ở trên rồi)
             if (!KiemTraNhapLieu(false)) return;
 
-            // Kiểm tra Logic Trạng thái (Giờ mới chạy đến đây)
+            // Kiểm tra Logic Trạng thái
             if (KiemTraTrangThai(txtMaPhong.Text, cboLoaiPhong.Text, cboTrangThai.Text) == false)
             {
                 return;
             }
 
             // Thực hiện Sửa vào DataTable
-            DataRow row = dt.Rows.Find(txtMaPhong.Text); // Lúc này chắc chắn tìm thấy
+            DataRow row = dt.Rows.Find(txtMaPhong.Text);
 
             if (row != null)
             {
@@ -581,7 +581,7 @@ namespace QLKTX
                         {
                             MessageBox.Show($"Phòng {txtMaPhong.Text} đang có {soSinhVien} sinh viên.\nBạn phải chuyển sinh viên đi nơi khác trước khi xóa!",
                                             "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                            return; // Dừng lại ngay, không cho xóa
+                            return; 
                         }
                     }
                 }

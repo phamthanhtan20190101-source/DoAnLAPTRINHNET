@@ -209,7 +209,6 @@ namespace QLKTX
                 try
                 {
                     // 2. Hoàn tác toàn bộ thay đổi trong DataTable
-                    // (Những dòng bạn đã sửa thành "Đã đóng" sẽ quay lại trạng thái cũ)
                     dt.RejectChanges();
 
                     // 3. Xóa trắng các ô nhập liệu để làm sạch giao diện
@@ -322,7 +321,7 @@ namespace QLKTX
             DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn lưu vào CSDL không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result != DialogResult.Yes) return;
 
-            // 4. BẮT ĐẦU QUÁ TRÌNH LƯU (Phần này giống code cũ nhưng an toàn hơn)
+            // 4. BẮT ĐẦU QUÁ TRÌNH LƯU
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
@@ -420,7 +419,7 @@ namespace QLKTX
             string baSoCuoi = mssv.Length >= 3 ? mssv.Substring(mssv.Length - 3) : mssv;
             string maThanhToan = $"TT{baSoCuoi}_{thang}"; // Tạo mã TT001_10
 
-            // Lấy tên người quản lý (Dùng UserSession hoặc Program tùy theo cách bạn đã chọn)
+            // Lấy tên người quản lý 
             string tenQuanLy = Program.HoTenNguoiDung;
 
             // 3. TẠO NỘI DUNG PHIẾU
@@ -495,8 +494,6 @@ namespace QLKTX
                 string hoten = selectedRow.Cells["HoTen"].Value.ToString();
                 string phong = selectedRow.Cells["MaPhong"].Value.ToString();
 
-                // 3. Khởi tạo Form 6 và truyền dữ liệu sang
-                // (Lưu ý: Form6 phải có hàm khởi tạo nhận 3 tham số này)
                 Form6 fLichSu = new Form6(mssv, hoten, phong);
 
                 // 4. Hiển thị Form 6
