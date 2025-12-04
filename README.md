@@ -125,12 +125,11 @@ Không sử dụng cho mục đích thương mại.
 
 ## 📬 Liên hệ
 Nếu bạn có bất kỳ thắc mắc hoặc góp ý nào về dự án, vui lòng liên hệ với các thành viên của nhóm thực hiện qua email:
+- **Phạm Thanh Tân** - ✉️ `tan_dth234761@student.agu.edu.vn`
+- **Vũ Thị Yến Vy** - ✉️ `vy_dth235820@student.agu.edu.vn`
+- **Nguyễn Thị Mỹ Xuyên** - ✉️ `xuyen_dth235822@student.agu.edu.vn`
 
-📧 Phạm Thanh Tân – tan_dth234761@student.agu.edu.vn
-'''
-📧 Vũ Thị Yến Vy – vy_dth235820@student.agu.edu.vn
-'''
-📧 Nguyễn Thị Mỹ Xuyên – xuyen_dth235822dth235822@student.agu.edu.vn
+
 
 
 
