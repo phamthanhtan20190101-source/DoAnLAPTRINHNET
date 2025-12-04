@@ -78,3 +78,30 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 ```csharp
 // Thay .\SQLEXPRESS bằng tên máy SQL của bạn
 string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+
+### Bước 3: Cài đặt Thư viện
+Nếu báo lỗi thiếu thư viện, hãy:
+1. Chuột phải vào **Solution** -> chọn **Manage NuGet Packages**.
+2. Tìm và cài đặt gói: **`FontAwesome.Sharp`**.
+3. Nhấn **Restore** các gói nếu cần.
+
+### Bước 4: Chạy ứng dụng
+Nhấn **F5** hoặc nút **Start** 
+
+---
+
+## 📂 Cấu Trúc Dự Án
+
+```text
+QLKTX/
+├── Database/            # Script tạo CSDL SQL
+├── UserControls/        # Các thẻ giao diện tự tạo (UCToaNha, UCPhong)
+├── Forms/               
+│   ├── Form1.cs         # Quản lý Sinh viên
+│   ├── Form2.cs         # Đăng nhập
+│   ├── Form4.cs         # Thu phí & Xuất hóa đơn
+│   ├── Form5.cs         # Quản lý Phòng
+│   └── ...
+├── Program.cs           # Điểm khởi chạy ứng dụng
+└── README.md            # Tài liệu hướng dẫn
+
