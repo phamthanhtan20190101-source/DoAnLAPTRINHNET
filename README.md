@@ -67,7 +67,7 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 
 ### Bước 1: Chuẩn bị Database
 1. Mở **SQL Server Management Studio (SSMS)**.
-2. Mở file script `Databasdth235822@student.agu.edu.vn
+2. Mở file
 3. Chạy (**Execute**) để tạo CSDL `QL_KyTucXa01` và các bảng dữ liệu.
 
 ### Bước 2: Cấu hình Code
@@ -127,7 +127,9 @@ Không sử dụng cho mục đích thương mại.
 Nếu bạn có bất kỳ thắc mắc hoặc góp ý nào về dự án, vui lòng liên hệ với các thành viên của nhóm thực hiện qua email:
 
 📧 Phạm Thanh Tân – tan_dth234761@student.agu.edu.vn
+'''
 📧 Vũ Thị Yến Vy – vy_dth235820@student.agu.edu.vn
+'''
 📧 Nguyễn Thị Mỹ Xuyên – xuyen_dth235822dth235822@student.agu.edu.vn
 
 
