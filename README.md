@@ -70,7 +70,9 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 3. Sửa dòng `connectionString` cho đúng với tên máy của bạn:
 ```csharp
 // Thay .\SQLEXPRESS bằng tên máy SQL của bạn
-string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";```
+string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+
+```
 
 ### Bước 3: Cài đặt Thư viện
 Nếu báo lỗi thiếu thư viện, hãy:
@@ -102,7 +104,8 @@ QLKTX/
 | Họ tên         | Mã số SV  |
 |----------------|-----------|
 | Phạm Thanh Tân | DTH235761 | 
-| Vũ Thị Yến Vy  | DTH235820 | 
+| Vũ Thị Yến Vy  | DTH235820 |
+| Nguyễn Thị Mỹ Xuyên  |  | 
 ---
 
 ## 🏁 Kết luận
