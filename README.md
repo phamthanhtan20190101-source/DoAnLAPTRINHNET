@@ -1,4 +1,4 @@
-# 🏠 HỆ THỐNG QUẢN LÝ KÝ TÚC XÁ (Dormitory Management System)
+# 🏠 QUẢN LÝ KÝ TÚC XÁ (Dormitory Management)
 
 ![.NET](https://img.shields.io/badge/.NET-Framework%204.8-purple?style=for-the-badge&logo=dotnet)
 ![C#](https://img.shields.io/badge/Language-C%23-239120?style=for-the-badge&logo=c-sharp)
