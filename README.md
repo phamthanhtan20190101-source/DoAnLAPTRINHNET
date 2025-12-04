@@ -68,6 +68,67 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 ### Bước 1: Chuẩn bị Database
 1. Mở **SQL Server Management Studio (SSMS)**.
 2. Mở file script `Databasdth235822@student.agu.edu.vn
+3. Chạy (**Execute**) để tạo CSDL `QL_KyTucXa01` và các bảng dữ liệu.
+
+### Bước 2: Cấu hình Code
+1. Mở dự án bằng **Visual Studio**.
+2. Tìm đến file `DatabaseHelper.cs` (hoặc phần khai báo biến ở đầu các Form).
+3. Sửa dòng `connectionString` cho đúng với tên máy của bạn:
+
+```csharp
+// Thay .\SQLEXPRESS bằng tên máy SQL của bạn
+string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QL_KyTucXa01;Integrated Security=True;TrustServerCertificate=True";
+
+```
+
+### Bước 3: Cài đặt Thư viện
+Nếu báo lỗi thiếu thư viện, hãy:
+1. Chuột phải vào **Solution** -> chọn **Manage NuGet Packages**.
+2. Tìm và cài đặt gói: **`FontAwesome.Sharp`**.
+3. Nhấn **Restore** các gói nếu cần.
+
+### Bước 4: Chạy ứng dụng
+Nhấn **F5** hoặc nút **Start** để trải nghiệm!
+
+---
+
+## 📂 Cấu Trúc Dự Án
+
+```text
+QLKTX/
+├── Database/            # Script tạo CSDL SQL
+├── UserControls/        # Các thẻ giao diện tự tạo (UCToaNha, UCPhong)
+├── Forms/               
+│   ├── Form1.cs         # Quản lý Sinh viên
+│   ├── Form2.cs         # Đăng nhập
+│   ├── Form4.cs         # Thu phí & Xuất hóa đơn
+│   ├── Form5.cs         # Quản lý Phòng
+│   └── ...
+├── Program.cs           # Điểm khởi chạy ứng dụng
+└── README.md            # Tài liệu hướng dẫn
+```
+
+## 👨‍💻 Nhóm thực hiện đồ án
+| Họ tên         | Mã số SV  |
+|----------------|-----------|
+| Phạm Thanh Tân | DTH235761 | 
+| Vũ Thị Yến Vy  | DTH235820 | 
+| Nguyễn Thị Mỹ Xuyên  | DTH235822 | 
+---
+
+## 🏁 Kết luận
+Dự án Ứng dụng quản lý ký túc xá giúp sinh viên vận dụng kiến thức **C#** để xây dựng ứng dụng thực tế phục vụ công tác quản lý ký túc xá một cách hiệu quả và chính xác.  
+
+## 📜 Giấy phép
+Dự án phục vụ mục đích **học tập** trong môn *Lập trình .Net – Đại học An Giang*.  
+Không sử dụng cho mục đích thương mại. 
+
+## 📬 Liên hệ
+Nếu bạn có bất kỳ thắc mắc hoặc góp ý nào về dự án, vui lòng liên hệ với các thành viên của nhóm thực hiện qua email:
+
+📧 Phạm Thanh Tân – tan_dth234761@student.agu.edu.vn
+📧 Vũ Thị Yến Vy – vy_dth235820@student.agu.edu.vn
+📧 Nguyễn Thị Mỹ Xuyên – xuyen_dth235822dth235822@student.agu.edu.vn
 
 
 
