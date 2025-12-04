@@ -5,7 +5,13 @@
 ![SQL Server](https://img.shields.io/badge/Database-SQL%20Server-CC2927?style=for-the-badge&logo=microsoft-sql-server)
 ![WinForms](https://img.shields.io/badge/UI-Windows%20Forms-blue?style=for-the-badge)
 
-📘 *Đồ án môn Lập trình .Net (TIE501)*  
+---
+
+## 👨‍🏫 Thông Tin Đồ Án
+
+- **Giảng viên hướng dẫn:** Nguyễn Thị Mỹ Truyền
+- **Môn học:** Lập trình .NET (TIE501)
+- **Năm thực hiện:** 2025
 
 ---
 
