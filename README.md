@@ -39,7 +39,9 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 
 | **Màn hình Đăng nhập** | **Dashboard Quản lý** |
 |:---:|:---:|
-| ![Login](https://via.placeholder.com/400x250?text=Man+Hinh+Dang+Nhap) | ![Admin](https://via.placeholder.com/400x250?text=Giao+Dien+Quan+Ly) |
+| <img width="625" height="436" alt="Ảnh chụp màn hình 2025-11-26 022515" src="https://github.com/user-attachments/assets/8441b400-5306-4d4b-ace8-2b5bf9e1a439" />
+ ![Uploading Ảnh chụp màn hình 2025-11-26 022515.png…]()
+ | ![Admin](https://via.placeholder.com/400x250?text=Giao+Dien+Quan+Ly) |
 
 | **Sơ đồ Tòa nhà (Card View)** | **Ghi nhận Đóng tiền** |
 |:---:|:---:|
