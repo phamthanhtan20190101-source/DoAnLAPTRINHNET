@@ -55,7 +55,7 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 | **Framework** | .NET Framework (Windows Forms) |
 | **Cơ sở dữ liệu** | Microsoft SQL Server |
 | **Kết nối dữ liệu** | **ADO.NET** (Mô hình Disconnected & Connected) |
-| **Giao diện** | `DataGridView`, `FlowLayoutPanel`, **UserControl** (Tự thiết kế) |
+| **Giao diện** | `DataGridView`, `FlowLayoutPanel`, **UserControl**|
 | **Thư viện Icon** | **FontAwesome.Sharp** (NuGet) |
 | **Kỹ thuật nâng cao**| `SqlTransaction`, `UserControl`, `Disconnected Architecture` |
 
@@ -67,8 +67,7 @@ Hệ thống được phân quyền chi tiết cho **Ban Quản Lý** và **Sinh
 
 ### Bước 1: Chuẩn bị Database
 1. Mở **SQL Server Management Studio (SSMS)**.
-2. Mở file
-3. Chạy (**Execute**) để tạo CSDL `QL_KyTucXa01` và các bảng dữ liệu.
+2. Chạy (**Execute**) để tạo CSDL `QL_KyTucXa01` và các bảng dữ liệu.
 
 ### Bước 2: Cấu hình Code
 1. Mở dự án bằng **Visual Studio**.
@@ -117,7 +116,7 @@ QLKTX/
 ---
 
 ## 🏁 Kết luận
-Dự án Ứng dụng quản lý ký túc xá giúp sinh viên vận dụng kiến thức **C#** để xây dựng ứng dụng thực tế phục vụ công tác quản lý ký túc xá một cách hiệu quả và chính xác.  
+Dự án quản lý ký túc xá giúp sinh viên vận dụng kiến thức **C#** để xây dựng ứng dụng thực tế phục vụ công tác quản lý ký túc xá một cách hiệu quả và chính xác.  
 
 ## 📜 Giấy phép
 Dự án phục vụ mục đích **học tập** trong môn *Lập trình .Net – Đại học An Giang*.  
